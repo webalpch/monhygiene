@@ -24,6 +24,91 @@ interface ReservationDetailModalProps {
   reservation: Reservation | null;
 }
 
+// Fonction pour formater les détails de service
+const formatServiceDetail = (key: string, value: any): { label: string; displayValue: string } => {
+  let label = "";
+  let displayValue = String(value);
+  
+  switch (key) {
+    case "pack":
+      label = "Pack";
+      break;
+    case "numberOfSeats":
+      label = "Nombre de places";
+      break;
+    case "matressSize":
+      label = "Taille";
+      displayValue = `${value} cm`;
+      break;
+    case "numberOfMatresses":
+      label = "Quantité";
+      break;
+    case "numberOfRooms":
+      label = "Nombre de pièces";
+      break;
+    case "surface":
+      label = "Surface";
+      displayValue = `${value} m²`;
+      break;
+    case "surfaceType":
+      label = "Type de revêtement";
+      break;
+    case "frequency":
+      label = "Fréquence";
+      displayValue = value === "weekly" ? "Hebdomadaire" : 
+                    value === "monthly" ? "Mensuel" : "Ponctuel";
+      break;
+    case "hasDeepCleaning":
+      if (value === true) {
+        label = "Option supplémentaire";
+        displayValue = "Nettoyage en profondeur";
+      }
+      break;
+    case "hasWindowCleaning":
+      if (value === true) {
+        label = "Option supplémentaire";
+        displayValue = "Nettoyage des vitres";
+      }
+      break;
+    case "notes":
+      label = "Notes";
+      break;
+    case "size":
+      label = "Taille";
+      break;
+    case "color":
+    case "colour":
+      label = "Couleur";
+      break;
+    case "type":
+      label = "Type";
+      break;
+    case "vehicleType":
+      label = "Type de véhicule";
+      break;
+    case "quantity":
+      label = "Quantité";
+      break;
+    case "dimensions":
+      label = "Dimensions";
+      break;
+    case "material":
+      label = "Matériau";
+      break;
+    case "brand":
+      label = "Marque";
+      break;
+    case "model":
+      label = "Modèle";
+      break;
+    default:
+      // Formatage automatique des clés en camelCase
+      label = key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+  }
+  
+  return { label, displayValue };
+};
+
 export const ReservationDetailModal = ({ isOpen, onClose, reservation }: ReservationDetailModalProps) => {
   if (!reservation) return null;
 
@@ -149,7 +234,7 @@ export const ReservationDetailModal = ({ isOpen, onClose, reservation }: Reserva
               </div>
               <div className="space-y-4">
                 {/* Affichage des services */}
-                <div className="space-y-4">
+                <div className="space-y-6">
                   <h4 className="font-semibold text-lg text-slate-800 border-b border-slate-200 pb-2">
                     Services réservés
                   </h4>
@@ -157,161 +242,84 @@ export const ReservationDetailModal = ({ isOpen, onClose, reservation }: Reserva
                   {/* Vérification si réservation multi-services */}
                   {(reservation as any)?.services && Array.isArray((reservation as any).services) ? (
                     // Réservation multi-services - chaque service séparé
-                    <div className="space-y-4">
+                    <div className="space-y-6">
                       {(reservation as any).services.map((service: any, index: number) => (
-                        <div key={index} className="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-500 rounded-lg p-4 shadow-sm">
-                          {/* Nom du service */}
-                          <h5 className="font-bold text-xl text-blue-800 mb-3">
-                            {service.service_name}
-                          </h5>
+                        <div key={index} className="relative">
+                          {/* Numéro du service */}
+                          <div className="absolute -left-2 -top-2 bg-primary text-white text-sm font-bold rounded-full w-8 h-8 flex items-center justify-center z-10">
+                            {index + 1}
+                          </div>
                           
-                          {/* Détails spécifiques du service */}
-                          {service.form_data && Object.keys(service.form_data).length > 0 && (
-                            <div className="space-y-2">
-                              {Object.entries(service.form_data)
-                                .filter(([key, value]) => value !== null && value !== undefined && value !== "")
-                                .map(([key, value]) => {
-                                  let label = "";
-                                  let displayValue = String(value);
-                                  
-                                  switch (key) {
-                                    case "pack":
-                                      label = "Pack";
-                                      break;
-                                    case "numberOfSeats":
-                                      label = "Nombre de places";
-                                      break;
-                                    case "matressSize":
-                                      label = "Taille";
-                                      displayValue = `${value} cm`;
-                                      break;
-                                    case "numberOfMatresses":
-                                      label = "Quantité";
-                                      break;
-                                    case "numberOfRooms":
-                                      label = "Nombre de pièces";
-                                      break;
-                                    case "surface":
-                                      label = "Surface";
-                                      displayValue = `${value} m²`;
-                                      break;
-                                    case "surfaceType":
-                                      label = "Type de revêtement";
-                                      break;
-                                    case "frequency":
-                                      label = "Fréquence";
-                                      displayValue = value === "weekly" ? "Hebdomadaire" : 
-                                                    value === "monthly" ? "Mensuel" : "Ponctuel";
-                                      break;
-                                    case "hasDeepCleaning":
-                                      if (value === true) {
-                                        label = "Option supplémentaire";
-                                        displayValue = "Nettoyage en profondeur";
-                                      } else return null;
-                                      break;
-                                    case "hasWindowCleaning":
-                                      if (value === true) {
-                                        label = "Option supplémentaire";
-                                        displayValue = "Nettoyage des vitres";
-                                      } else return null;
-                                      break;
-                                    case "notes":
-                                      label = "Notes";
-                                      break;
-                                    default:
-                                      label = key;
-                                  }
-                                  
-                                  return label ? (
-                                    <div key={key} className="bg-white/80 rounded-lg p-3 border border-blue-100">
-                                      <span className="font-medium text-slate-700">{label} : </span>
-                                      <span className="font-bold text-blue-900">{displayValue}</span>
-                                    </div>
-                                  ) : null;
-                                })}
-                            </div>
-                          )}
-                          
-                          {/* Prix du service */}
-                          {service.estimated_price && (
-                            <div className="mt-3 text-right">
-                              <span className="bg-green-100 text-green-800 font-bold px-4 py-2 rounded-full">
-                                {service.estimated_price} CHF
-                              </span>
-                            </div>
-                          )}
+                          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-500 rounded-lg p-6 shadow-sm ml-4">
+                            {/* Nom du service */}
+                            <h5 className="font-bold text-2xl text-blue-800 mb-4">
+                              {service.service_name}
+                            </h5>
+                            
+                            {/* Détails spécifiques du service */}
+                            {service.form_data && Object.keys(service.form_data).length > 0 && (
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                                {Object.entries(service.form_data)
+                                  .filter(([key, value]) => {
+                                    // Filtrer les valeurs vides et les objets
+                                    if (value === null || value === undefined || value === "") return false;
+                                    if (typeof value === 'object' && !Array.isArray(value)) return false;
+                                    return true;
+                                  })
+                                  .map(([key, value]) => {
+                                    const { label, displayValue } = formatServiceDetail(key, value);
+                                    
+                                    return label ? (
+                                      <div key={key} className="bg-white/90 rounded-lg p-4 border border-blue-100 shadow-sm">
+                                        <div className="flex flex-col space-y-1">
+                                          <span className="font-medium text-sm text-slate-600 uppercase tracking-wide">{label}</span>
+                                          <span className="font-bold text-lg text-blue-900">{displayValue}</span>
+                                        </div>
+                                      </div>
+                                    ) : null;
+                                  })}
+                              </div>
+                            )}
+                            
+                            {/* Prix du service */}
+                            {service.estimated_price && (
+                              <div className="flex justify-end">
+                                <span className="bg-green-100 text-green-800 font-bold px-6 py-3 rounded-full text-lg shadow-sm">
+                                  {service.estimated_price} CHF
+                                </span>
+                              </div>
+                            )}
+                          </div>
                         </div>
                       ))}
                     </div>
                   ) : (
                     // Service unique
-                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-500 rounded-lg p-4 shadow-sm">
+                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-500 rounded-lg p-6 shadow-sm">
                       {/* Nom du service */}
-                      <h5 className="font-bold text-xl text-blue-800 mb-3">
+                      <h5 className="font-bold text-2xl text-blue-800 mb-4">
                         {reservation.service_type}
                       </h5>
                       
                       {/* Détails spécifiques du service */}
                       {reservation.service_details && Object.keys(reservation.service_details).length > 0 && (
-                        <div className="space-y-2">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
                           {Object.entries(reservation.service_details)
-                            .filter(([key, value]) => value !== null && value !== undefined && value !== "")
+                            .filter(([key, value]) => {
+                              // Filtrer les valeurs vides et les objets
+                              if (value === null || value === undefined || value === "") return false;
+                              if (typeof value === 'object' && !Array.isArray(value)) return false;
+                              return true;
+                            })
                             .map(([key, value]) => {
-                              let label = "";
-                              let displayValue = String(value);
-                              
-                              switch (key) {
-                                case "pack":
-                                  label = "Pack";
-                                  break;
-                                case "numberOfSeats":
-                                  label = "Nombre de places";
-                                  break;
-                                case "matressSize":
-                                  label = "Taille";
-                                  displayValue = `${value} cm`;
-                                  break;
-                                case "numberOfMatresses":
-                                  label = "Quantité";
-                                  break;
-                                case "numberOfRooms":
-                                  label = "Nombre de pièces";
-                                  break;
-                                case "surface":
-                                  label = "Surface";
-                                  displayValue = `${value} m²`;
-                                  break;
-                                case "surfaceType":
-                                  label = "Type de revêtement";
-                                  break;
-                                case "frequency":
-                                  label = "Fréquence";
-                                  displayValue = value === "weekly" ? "Hebdomadaire" : 
-                                                value === "monthly" ? "Mensuel" : "Ponctuel";
-                                  break;
-                                case "hasDeepCleaning":
-                                  if (value === true) {
-                                    label = "Option supplémentaire";
-                                    displayValue = "Nettoyage en profondeur";
-                                  } else return null;
-                                  break;
-                                case "hasWindowCleaning":
-                                  if (value === true) {
-                                    label = "Option supplémentaire";
-                                    displayValue = "Nettoyage des vitres";
-                                  } else return null;
-                                  break;
-                                case "notes":
-                                  label = "Notes";
-                                  break;
-                                default:
-                                  label = key;
-                              }
+                              const { label, displayValue } = formatServiceDetail(key, value);
                               
                               return label ? (
-                                <div key={key} className="bg-white/80 rounded-lg p-3 border border-blue-100">
-                                  <span className="font-medium text-slate-700">{label} : </span>
-                                  <span className="font-bold text-blue-900">{displayValue}</span>
+                                <div key={key} className="bg-white/90 rounded-lg p-4 border border-blue-100 shadow-sm">
+                                  <div className="flex flex-col space-y-1">
+                                    <span className="font-medium text-sm text-slate-600 uppercase tracking-wide">{label}</span>
+                                    <span className="font-bold text-lg text-blue-900">{displayValue}</span>
+                                  </div>
                                 </div>
                               ) : null;
                             })}
@@ -320,8 +328,8 @@ export const ReservationDetailModal = ({ isOpen, onClose, reservation }: Reserva
                       
                       {/* Prix estimé */}
                       {reservation.estimated_price && (
-                        <div className="mt-3 text-right">
-                          <span className="bg-green-100 text-green-800 font-bold px-4 py-2 rounded-full">
+                        <div className="flex justify-end">
+                          <span className="bg-green-100 text-green-800 font-bold px-6 py-3 rounded-full text-lg shadow-sm">
                             {reservation.estimated_price} CHF
                           </span>
                         </div>
