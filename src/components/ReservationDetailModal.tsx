@@ -27,7 +27,30 @@ interface ReservationDetailModalProps {
 // Fonction pour formater les détails de service
 const formatServiceDetail = (key: string, value: any): { label: string; displayValue: string } => {
   let label = "";
-  let displayValue = String(value);
+  let displayValue = "";
+  
+  // Gestion des différents types de valeurs
+  if (value === null || value === undefined) {
+    return { label: "", displayValue: "" };
+  }
+  
+  // Gestion des objets et tableaux
+  if (typeof value === 'object') {
+    if (Array.isArray(value)) {
+      displayValue = value.join(', ');
+    } else {
+      // Pour les objets, essayer d'extraire des propriétés utiles
+      if (value.name) displayValue = value.name;
+      else if (value.label) displayValue = value.label;
+      else if (value.title) displayValue = value.title;
+      else if (value.value) displayValue = value.value;
+      else displayValue = JSON.stringify(value);
+    }
+  } else if (typeof value === 'boolean') {
+    displayValue = value ? "Oui" : "Non";
+  } else {
+    displayValue = String(value);
+  }
   
   switch (key) {
     case "pack":
@@ -38,7 +61,7 @@ const formatServiceDetail = (key: string, value: any): { label: string; displayV
       break;
     case "matressSize":
       label = "Taille";
-      displayValue = `${value} cm`;
+      displayValue = typeof value === 'object' ? displayValue : `${value} cm`;
       break;
     case "numberOfMatresses":
       label = "Quantité";
@@ -48,26 +71,33 @@ const formatServiceDetail = (key: string, value: any): { label: string; displayV
       break;
     case "surface":
       label = "Surface";
-      displayValue = `${value} m²`;
+      displayValue = typeof value === 'object' ? displayValue : `${value} m²`;
       break;
     case "surfaceType":
       label = "Type de revêtement";
       break;
     case "frequency":
       label = "Fréquence";
-      displayValue = value === "weekly" ? "Hebdomadaire" : 
-                    value === "monthly" ? "Mensuel" : "Ponctuel";
+      if (typeof value === 'string') {
+        displayValue = value === "weekly" ? "Hebdomadaire" : 
+                      value === "monthly" ? "Mensuel" : 
+                      value === "once" ? "Ponctuel" : value;
+      }
       break;
     case "hasDeepCleaning":
       if (value === true) {
         label = "Option supplémentaire";
         displayValue = "Nettoyage en profondeur";
+      } else {
+        return { label: "", displayValue: "" };
       }
       break;
     case "hasWindowCleaning":
       if (value === true) {
         label = "Option supplémentaire";
         displayValue = "Nettoyage des vitres";
+      } else {
+        return { label: "", displayValue: "" };
       }
       break;
     case "notes":
@@ -100,6 +130,12 @@ const formatServiceDetail = (key: string, value: any): { label: string; displayV
       break;
     case "model":
       label = "Modèle";
+      break;
+    case "options":
+      label = "Options";
+      break;
+    case "services":
+      label = "Services inclus";
       break;
     default:
       // Formatage automatique des clés en camelCase
@@ -261,9 +297,8 @@ export const ReservationDetailModal = ({ isOpen, onClose, reservation }: Reserva
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
                                 {Object.entries(service.form_data)
                                   .filter(([key, value]) => {
-                                    // Filtrer les valeurs vides et les objets
+                                    // Filtrer seulement les valeurs vides
                                     if (value === null || value === undefined || value === "") return false;
-                                    if (typeof value === 'object' && !Array.isArray(value)) return false;
                                     return true;
                                   })
                                   .map(([key, value]) => {
@@ -306,9 +341,8 @@ export const ReservationDetailModal = ({ isOpen, onClose, reservation }: Reserva
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
                           {Object.entries(reservation.service_details)
                             .filter(([key, value]) => {
-                              // Filtrer les valeurs vides et les objets
+                              // Filtrer seulement les valeurs vides
                               if (value === null || value === undefined || value === "") return false;
-                              if (typeof value === 'object' && !Array.isArray(value)) return false;
                               return true;
                             })
                             .map(([key, value]) => {
