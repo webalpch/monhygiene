@@ -7,6 +7,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { ChevronDown } from 'lucide-react';
 import { ServiceFormModal } from './ServiceFormModal';
 import { useCart } from '@/hooks/useCart';
+import { useNavigate } from 'react-router-dom';
 
 interface ServiceInfoModalProps {
   service: Service | null;
@@ -19,6 +20,7 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
   const [selectedPack, setSelectedPack] = useState<string | null>(null);
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
   const { addToCart } = useCart();
+  const navigate = useNavigate();
   
   if (!service) return null;
 
@@ -198,6 +200,7 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
       }
       addToCart(service, {}, price);
       onClose();
+      navigate('/fr/reservation');
     }
   };
 
@@ -206,6 +209,7 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
       await addToCart(service, formData, price);
       setIsFormModalOpen(false);
       onClose();
+      navigate('/fr/reservation');
     } catch (error) {
       console.error('Error adding to cart:', error);
     }
