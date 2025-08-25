@@ -22,7 +22,7 @@ const HeroSection = ({ onReservationClick }: HeroSectionProps) => {
           playsInline
           className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto object-cover transform -translate-x-1/2 -translate-y-1/2 scale-110"
         >
-          <source src="https://gcuacylbpxzhabpflruf.supabase.co/storage/v1/object/public/video/video.mp4" type="video/mp4" />
+          <source src="https://gcuacylbpxzhabpflruf.supabase.co/storage/v1/object/public/video/showreel.mp4" type="video/mp4" />
         </video>
         {/* Filtre sombre transparent */}
         <div className="absolute inset-0 bg-black/40"></div>
