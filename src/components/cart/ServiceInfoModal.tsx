@@ -78,7 +78,7 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
         };
       case 'nettoyage-canape':
         return {
-          description: 'Nettoyage professionnel de votre canapé à domicile',
+          description: 'Nettoyage de votre canapé à domicile',
           features: [
             'Nettoyage en profondeur',
             'Élimination des taches',
@@ -104,7 +104,7 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
         };
       case 'nettoyage-vitres':
         return {
-          description: 'Nettoyage professionnel de vitres intérieur et extérieur',
+          description: 'Nettoyage de vitres intérieur et extérieur',
           features: [
             'Nettoyage sans traces',
             'Produits spécialisés',
@@ -117,7 +117,7 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
         };
       case 'nettoyage-moquette-tapis':
         return {
-          description: 'Nettoyage professionnel de moquettes et tapis',
+          description: 'Nettoyage de moquettes et tapis',
           features: [
             'Nettoyage en profondeur',
             'Élimination des taches',
@@ -143,7 +143,7 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
         };
       case 'shampooinage-sieges':
         return {
-          description: 'Nettoyage professionnel des sièges de véhicule',
+          description: 'Nettoyage des sièges de véhicule',
           features: [
             'Shampooinage à la vapeur',
             'Élimination des taches',
@@ -156,7 +156,7 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
         };
       case 'nettoyage-toiture':
         return {
-          description: 'Nettoyage professionnel de toiture avec matériel spécialisé',
+          description: 'Nettoyage de toiture avec matériel spécialisé',
           features: [
             'Nettoyage haute pression',
             'Démoussage complet',
