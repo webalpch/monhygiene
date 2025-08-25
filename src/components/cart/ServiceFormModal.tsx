@@ -72,7 +72,8 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
         return 0; // Prix sur devis
 
       case 'shampooinage-sieges':
-        return 100; // Prix fixe pour shampooinage sièges
+        const numberOfSeats = parseInt(formData.numberOfSeats) || 1;
+        return numberOfSeats * 20; // 20 CHF par siège
 
       default:
         return 100;
@@ -94,7 +95,7 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
       case 'nettoyage-terrasse':
         return formData.surfaceType; // Type de revêtement obligatoire
       case 'shampooinage-sieges':
-        return true; // Pas de paramètres obligatoires pour ce service
+        return formData.numberOfSeats; // Nombre de sièges obligatoire
       case 'nettoyage-toiture':
       case 'autres-services':
       case 'nettoyage-vitres':
@@ -313,6 +314,41 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
               <Textarea 
                 id="notes"
                 placeholder="Taille approximative, état de la terrasse, demandes spéciales..."
+                onChange={(e) => updateFormData('notes', e.target.value)}
+              />
+            </div>
+          </div>
+        );
+
+      case 'shampooinage-sieges':
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="numberOfSeats">Nombre de sièges *</Label>
+              <Select onValueChange={(value) => updateFormData('numberOfSeats', value)} value={formData.numberOfSeats}>
+                <SelectTrigger className="bg-white border-2 z-50">
+                  <SelectValue placeholder="Sélectionnez..." />
+                </SelectTrigger>
+                <SelectContent className="bg-white border-2 shadow-lg z-50">
+                  <SelectItem value="1">1 siège (20 CHF)</SelectItem>
+                  <SelectItem value="2">2 sièges (40 CHF)</SelectItem>
+                  <SelectItem value="3">3 sièges (60 CHF)</SelectItem>
+                  <SelectItem value="4">4 sièges (80 CHF)</SelectItem>
+                  <SelectItem value="5">5 sièges (100 CHF)</SelectItem>
+                  <SelectItem value="6">6 sièges (120 CHF)</SelectItem>
+                  <SelectItem value="7">7 sièges (140 CHF)</SelectItem>
+                </SelectContent>
+              </Select>
+              {!formData.numberOfSeats && (
+                <p className="text-red-500 text-sm mt-1">⚠️ Veuillez sélectionner le nombre de sièges</p>
+              )}
+            </div>
+
+            <div>
+              <Label htmlFor="notes">Notes spéciales</Label>
+              <Textarea 
+                id="notes"
+                placeholder="Type de véhicule, état des sièges, demandes spéciales..."
                 onChange={(e) => updateFormData('notes', e.target.value)}
               />
             </div>
