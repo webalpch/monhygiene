@@ -66,7 +66,7 @@ const CleanServicesCarousel: React.FC<CleanServicesCarouselProps> = ({
 
       {/* Carousel */}
       <div className="overflow-hidden px-16" ref={emblaRef}>
-        <div className="flex gap-6">
+        <div className="flex gap-4">
           {services.map((service) => {
             const IconComponent = icons[service.icon as keyof typeof icons];
             
