@@ -60,7 +60,7 @@ export const SERVICES: Service[] = [
     id: 'nettoyage-toiture',
     name: 'Nettoyage toiture',
     icon: 'House',
-    description: 'Nettoyage et entretien professionnel de votre toiture'
+    description: 'Nettoyage et entretien de votre toiture'
   },
   {
     id: 'autres-services',
