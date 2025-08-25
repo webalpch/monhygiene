@@ -186,7 +186,7 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
 
   const handleAddToCart = () => {
     // Pour certains services, ouvrir directement le formulaire de configuration
-    const servicesNeedingConfig = ['nettoyage-vehicule', 'nettoyage-terrasse', 'nettoyage-canape', 'nettoyage-matelas', 'nettoyage-domicile', 'nettoyage-bureaux'];
+    const servicesNeedingConfig = ['nettoyage-vehicule', 'nettoyage-terrasse', 'nettoyage-canape', 'nettoyage-matelas', 'nettoyage-domicile', 'nettoyage-bureaux', 'shampooinage-sieges'];
     
     if (servicesNeedingConfig.includes(service.id)) {
       setIsFormModalOpen(true);
