@@ -58,6 +58,12 @@ const ReviewsSection = () => {
         avatar: 'G',
         rating: 5,
         comment: 'Travail impeccable. Revenue comme neuf. Merci et encore bravo.'
+      }, {
+        id: 9,
+        name: 'Awp balet',
+        avatar: 'A',
+        rating: 5,
+        comment: 'Prix très abordable pour la qualité du travail. Je recommande!'
       }],
       de: [{
         id: 1,
@@ -107,6 +113,12 @@ const ReviewsSection = () => {
         avatar: 'G',
         rating: 5,
         comment: 'Tadellose Arbeit. Wie neu zurückgekommen. Danke und nochmals Bravo.'
+      }, {
+        id: 9,
+        name: 'Awp balet',
+        avatar: 'A',
+        rating: 5,
+        comment: 'Sehr erschwinglicher Preis für die Qualität der Arbeit. Ich empfehle!'
       }],
       en: [{
         id: 1,
@@ -156,6 +168,12 @@ const ReviewsSection = () => {
         avatar: 'G',
         rating: 5,
         comment: 'Impeccable work. Came back like new. Thank you and bravo again.'
+      }, {
+        id: 9,
+        name: 'Awp balet',
+        avatar: 'A',
+        rating: 5,
+        comment: 'Very affordable price for the quality of work. I recommend!'
       }]
     };
     return baseReviews[language] || baseReviews.fr;
