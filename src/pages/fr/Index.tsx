@@ -10,6 +10,7 @@ import GallerySection from "@/components/GallerySection";
 import VideoSection from "@/components/VideoSection";
 import ReviewsSection from "@/components/ReviewsSection";
 import StatsSection from "@/components/StatsSection";
+import { CartWidget } from "@/components/CartWidget";
 
 import Footer from "@/components/Footer";
 
@@ -109,6 +110,9 @@ const IndexFr = () => {
 
       {/* Bouton WhatsApp flottant */}
       <WhatsAppButton />
+      
+      {/* Widget Panier */}
+      <CartWidget />
     </div>
   );
 };
