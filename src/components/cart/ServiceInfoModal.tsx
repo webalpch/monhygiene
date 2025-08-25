@@ -241,7 +241,7 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
                     >
                       <div className="flex items-center space-x-3">
                         <span className="font-medium">Pack {packType}</span>
-                        <span className="text-primary font-semibold">{packData.price} CHF</span>
+                        
                       </div>
                       <ChevronDown className={`h-4 w-4 transition-transform ${selectedPack === packType ? 'rotate-180' : ''}`} />
                     </CollapsibleTrigger>
@@ -278,12 +278,6 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
             </div>
           )}
 
-          <div className="grid grid-cols-1 gap-4">
-            <div>
-              <h4 className="font-medium text-sm mb-1">Tarif</h4>
-              <p className="text-sm text-gray-600">{details.priceRange}</p>
-            </div>
-          </div>
 
           <div className="flex gap-3">
             {onAddToCart && (
