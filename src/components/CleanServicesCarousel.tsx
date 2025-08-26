@@ -129,7 +129,7 @@ const CleanServicesCarousel: React.FC<CleanServicesCarouselProps> = ({
         service={infoService}
         isOpen={!!infoService}
         onClose={() => setInfoService(null)}
-        onAddToCart={onServiceClick}
+        onAddToCart={() => {}}
       />
     </div>
   );

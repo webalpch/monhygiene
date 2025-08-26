@@ -306,19 +306,17 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
           </div>
 
           <div className="flex gap-3">
-            {onAddToCart && (
-              <Button 
-                onClick={handleAddToCart}
-                className="flex-1"
-              >
-                <ShoppingCart className="w-4 h-4 mr-2" />
-                Ajouter au panier
-              </Button>
-            )}
+            <Button 
+              onClick={handleAddToCart}
+              className="flex-1"
+            >
+              <ShoppingCart className="w-4 h-4 mr-2" />
+              Ajouter au panier
+            </Button>
             <Button 
               variant="outline" 
               onClick={onClose} 
-              className={onAddToCart ? "flex-1" : "w-full"}
+              className="flex-1"
             >
               Fermer
             </Button>

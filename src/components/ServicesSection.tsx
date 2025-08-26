@@ -16,9 +16,8 @@ const ServicesSection = () => {
   const services = SERVICES;
 
   const handleAddToCartAndReserve = (service: Service) => {
-    // Ajouter le service au panier avec un prix par défaut
-    addToCart(service, {}, 150);
-    // Ouvrir la modal de réservation
+    // Ne pas ajouter directement au panier ici
+    // Laisser ServiceInfoModal gérer l'ajout au panier selon ses propres règles
     setIsReservationOpen(true);
   };
 
