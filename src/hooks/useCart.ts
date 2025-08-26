@@ -54,8 +54,10 @@ export const useCart = () => {
 
   // Save cart to localStorage whenever it changes
   useEffect(() => {
-    if (cart.items.length > 0 || cart.address || cart.contactInfo) {
-      localStorage.setItem('reservationCart', JSON.stringify(cart));
+    localStorage.setItem('reservationCart', JSON.stringify(cart));
+    // Also remove from localStorage when cart is empty
+    if (cart.items.length === 0 && !cart.address && !cart.contactInfo) {
+      localStorage.removeItem('reservationCart');
     }
   }, [cart]);
 

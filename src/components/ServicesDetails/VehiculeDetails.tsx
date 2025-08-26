@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -12,266 +12,280 @@ interface VehiculeDetailsProps {
 }
 
 const VehiculeDetails = ({ onDataChange, onNext, onBack, initialData }: VehiculeDetailsProps) => {
-  const [pack, setPack] = useState<string>(initialData?.pack || '');
-  const [shampooing, setShampooing] = useState<boolean>(initialData?.shampooing || false);
-  const [lavageExterieur, setLavageExterieur] = useState<boolean>(initialData?.lavageExterieur || false);
+  const [vehicleType, setVehicleType] = useState<string>(initialData?.vehicleType || '');
+  const [selectedPack, setSelectedPack] = useState<string>(initialData?.pack || '');
+  const [poilsAnimaux, setPoilsAnimaux] = useState<boolean>(initialData?.poilsAnimaux || false);
   const [traitementOzone, setTraitementOzone] = useState<boolean>(initialData?.traitementOzone || false);
+  const [nettoyageExterieur, setNettoyageExterieur] = useState<boolean>(initialData?.nettoyageExterieur || false);
   const [priseElectrique, setPriseElectrique] = useState<string>(initialData?.priseElectrique || '');
   const [accesMobile, setAccesMobile] = useState<string>(initialData?.accesMobile || '');
 
-  const packs = {
-    'M': { name: 'Pack M', price: 80, description: 'Nettoyage intérieur standard' },
-    'L': { name: 'Pack L', price: 120, description: 'Nettoyage intérieur complet' },
-    'Premium': { name: 'Pack Premium', price: 180, description: 'Nettoyage intérieur premium avec finitions' }
+  // Prix par type de véhicule et pack
+  const vehiclePricing = {
+    petite: {
+      M: { price: 70, duration: '1h' },
+      L: { price: 110, duration: '2h' },
+      Premium: { price: 160, duration: '3h' }
+    },
+    moyenne: {
+      M: { price: 80, duration: '1h30' },
+      L: { price: 120, duration: '2h30' },
+      Premium: { price: 180, duration: '4h' }
+    },
+    grande: {
+      M: { price: 100, duration: '2h' },
+      L: { price: 140, duration: '3h' },
+      Premium: { price: 220, duration: '5h' }
+    }
   };
 
-  const options = {
-    shampooing: 30,
-    lavageExterieur: 25,
-    traitementOzone: 40
+  const optionPrices = {
+    poilsAnimaux: 10,
+    traitementOzone: 80,
+    nettoyageExterieur: 70
   };
 
+  // Fonction pour mettre à jour les données
   const updateData = () => {
-    let totalPrice = pack ? packs[pack as keyof typeof packs].price : 0;
-    if (shampooing) totalPrice += options.shampooing;
-    if (lavageExterieur) totalPrice += options.lavageExterieur;
-    if (traitementOzone) totalPrice += options.traitementOzone;
-
-    onDataChange({
-      type: 'vehicule',
-      pack,
-      shampooing,
-      lavageExterieur,
+    const data = {
+      vehicleType,
+      pack: selectedPack,
+      poilsAnimaux,
       traitementOzone,
+      nettoyageExterieur,
       priseElectrique,
       accesMobile,
-      price: totalPrice
-    });
+      totalPrice: calculateTotal()
+    };
+    onDataChange(data);
+  };
+
+  // Gestionnaires d'événements
+  const handleVehicleTypeChange = (value: string) => {
+    setVehicleType(value);
+    // Reset pack selection when vehicle type changes
+    setSelectedPack('');
   };
 
   const handlePackChange = (value: string) => {
-    setPack(value);
-    setTimeout(updateData, 0);
+    setSelectedPack(value);
   };
 
-  const handleOptionChange = (option: string, checked: boolean) => {
+  const handleOptionChange = (option: string, value: boolean) => {
     switch (option) {
-      case 'shampooing':
-        setShampooing(checked);
-        break;
-      case 'lavageExterieur':
-        setLavageExterieur(checked);
+      case 'poilsAnimaux':
+        setPoilsAnimaux(value);
         break;
       case 'traitementOzone':
-        setTraitementOzone(checked);
+        setTraitementOzone(value);
+        break;
+      case 'nettoyageExterieur':
+        setNettoyageExterieur(value);
         break;
     }
-    setTimeout(updateData, 0);
   };
 
   const handlePriseElectriqueChange = (value: string) => {
     setPriseElectrique(value);
-    setTimeout(updateData, 0);
   };
 
   const handleAccesMobileChange = (value: string) => {
     setAccesMobile(value);
-    setTimeout(updateData, 0);
   };
 
-  const isFormValid = pack && priseElectrique && accesMobile;
+  // Validation du formulaire
+  const isFormValid = vehicleType && selectedPack && priseElectrique && accesMobile;
 
+  // Calcul du total
   const calculateTotal = () => {
-    let total = pack ? packs[pack as keyof typeof packs].price : 0;
-    if (shampooing) total += options.shampooing;
-    if (lavageExterieur) total += options.lavageExterieur;
-    if (traitementOzone) total += options.traitementOzone;
+    let total = 0;
+    
+    if (vehicleType && selectedPack && vehiclePricing[vehicleType as keyof typeof vehiclePricing]) {
+      const pricing = vehiclePricing[vehicleType as keyof typeof vehiclePricing];
+      total += pricing[selectedPack as keyof typeof pricing]?.price || 0;
+    }
+    
+    if (poilsAnimaux) total += optionPrices.poilsAnimaux;
+    if (traitementOzone) total += optionPrices.traitementOzone;
+    if (nettoyageExterieur) total += optionPrices.nettoyageExterieur;
+    
     return total;
   };
 
+  // Mettre à jour les données à chaque changement
+  useEffect(() => {
+    updateData();
+  }, [vehicleType, selectedPack, poilsAnimaux, traitementOzone, nettoyageExterieur, priseElectrique, accesMobile]);
+
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">
-          Nettoyage intérieur de véhicule
-        </h1>
-        <p className="text-lg text-gray-600">
-          Service professionnel de nettoyage de véhicule à domicile
-        </p>
-      </div>
-
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-        <p className="text-blue-800 font-medium">
-          Gratuit dans un rayon de 5 km autour de Sion. Sinon, CHF 0.75/km (aller simple).
-        </p>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>✅ Comment ça marche</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2 text-sm">
-              <li>• Réservez en ligne en sélectionnant votre pack</li>
-              <li>• Nous vous contactons pour confirmer les détails</li>
-              <li>• Notre équipe se rend chez vous avec le matériel</li>
-              <li>• Nettoyage complet selon le pack choisi</li>
-            </ul>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>🎯 Vos avantages</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2 text-sm">
-              <li>✨ Véhicule propre et rafraîchi</li>
-              <li>🚗 Service à domicile, pas besoin de se déplacer</li>
-              <li>💚 Produits respectueux de l'environnement</li>
-              <li>🔧 Matériel professionnel de pointe</li>
-            </ul>
-          </CardContent>
-        </Card>
-      </div>
-
+    <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>📦 Choisissez votre pack</CardTitle>
+          <CardTitle className="text-xl font-semibold">Nettoyage de véhicule</CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Pack de nettoyage *
-              </label>
-              <Select value={pack} onValueChange={handlePackChange}>
-                <SelectTrigger className="cursor-pointer">
-                  <SelectValue placeholder="Sélectionnez un pack" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.entries(packs).map(([key, packInfo]) => (
-                    <SelectItem key={key} value={key} className="cursor-pointer">
-                      {packInfo.name} - {packInfo.price} CHF - {packInfo.description}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>🔧 Options supplémentaires</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="shampooing"
-                checked={shampooing}
-                onCheckedChange={(checked) => handleOptionChange('shampooing', checked as boolean)}
-                className="cursor-pointer"
-              />
-              <label htmlFor="shampooing" className="text-sm font-medium cursor-pointer">
-                Shampooinage des sièges (+{options.shampooing} CHF)
-              </label>
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="lavageExterieur"
-                checked={lavageExterieur}
-                onCheckedChange={(checked) => handleOptionChange('lavageExterieur', checked as boolean)}
-                className="cursor-pointer"
-              />
-              <label htmlFor="lavageExterieur" className="text-sm font-medium cursor-pointer">
-                Lavage extérieur (+{options.lavageExterieur} CHF)
-              </label>
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="traitementOzone"
-                checked={traitementOzone}
-                onCheckedChange={(checked) => handleOptionChange('traitementOzone', checked as boolean)}
-                className="cursor-pointer"
-              />
-              <label htmlFor="traitementOzone" className="text-sm font-medium cursor-pointer">
-                Traitement ozone (+{options.traitementOzone} CHF)
-              </label>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>❓ Questions obligatoires</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Avez-vous une prise électrique à moins de 40 m ? *
-              </label>
-              <Select value={priseElectrique} onValueChange={handlePriseElectriqueChange}>
-                <SelectTrigger className="cursor-pointer">
-                  <SelectValue placeholder="Sélectionnez une réponse" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="oui" className="cursor-pointer">Oui</SelectItem>
-                  <SelectItem value="non" className="cursor-pointer">Non</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Peut-on bouger librement autour du véhicule pour nettoyer ? *
-              </label>
-              <Select value={accesMobile} onValueChange={handleAccesMobileChange}>
-                <SelectTrigger className="cursor-pointer">
-                  <SelectValue placeholder="Sélectionnez une réponse" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="oui" className="cursor-pointer">Oui</SelectItem>
-                  <SelectItem value="non" className="cursor-pointer">Non</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {pack && (
-        <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-          <p className="font-medium text-green-800">
-            Prix total: {calculateTotal()} CHF
+        <CardContent className="space-y-4">
+          <p className="text-gray-600">
+            Nous proposons trois catégories de véhicules (Petite, Moyenne et Grande) et trois niveaux de formules (Pack M, Pack L et Pack Premium), adaptés à vos besoins et au temps consacré au nettoyage.
           </p>
-        </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Type de véhicule</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <Select value={vehicleType} onValueChange={handleVehicleTypeChange}>
+            <SelectTrigger>
+              <SelectValue placeholder="Sélectionner le type de véhicule" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="petite">Petite voiture</SelectItem>
+              <SelectItem value="moyenne">Moyenne voiture</SelectItem>
+              <SelectItem value="grande">Grande voiture (SUV/Van)</SelectItem>
+            </SelectContent>
+          </Select>
+        </CardContent>
+      </Card>
+
+      {vehicleType && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Choisissez votre formule</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid gap-3">
+              {Object.entries(vehiclePricing[vehicleType as keyof typeof vehiclePricing] || {}).map(([pack, info]) => (
+                <div
+                  key={pack}
+                  className={`p-4 border rounded-lg cursor-pointer transition-colors ${
+                    selectedPack === pack ? 'border-primary bg-primary/5' : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                  onClick={() => handlePackChange(pack)}
+                >
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h4 className="font-medium">Pack {pack}</h4>
+                      <p className="text-sm text-gray-600">Durée: {info.duration}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-semibold">CHF {info.price}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="text-sm text-gray-600 space-y-1">
+              <p><strong>Pack M :</strong> nettoyage complet de base, rapide et efficace (durée la plus courte).</p>
+              <p><strong>Pack L :</strong> nettoyage approfondi avec plus de détails (durée intermédiaire).</p>
+              <p><strong>Pack Premium :</strong> formule la plus complète avec un nettoyage minutieux et un rendu optimal (durée la plus longue).</p>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Services complémentaires</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-center space-x-2">
+            <Checkbox 
+              id="poilsAnimaux" 
+              checked={poilsAnimaux}
+              onCheckedChange={(checked) => handleOptionChange('poilsAnimaux', checked as boolean)}
+            />
+            <label htmlFor="poilsAnimaux" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Poils d'animaux (+CHF 10)
+            </label>
+          </div>
+          
+          <div className="flex items-center space-x-2">
+            <Checkbox 
+              id="traitementOzone" 
+              checked={traitementOzone}
+              onCheckedChange={(checked) => handleOptionChange('traitementOzone', checked as boolean)}
+            />
+            <label htmlFor="traitementOzone" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Traitement à l'Ozone (désinfection en profondeur) (+CHF 80)
+            </label>
+          </div>
+          
+          <div className="flex items-center space-x-2">
+            <Checkbox 
+              id="nettoyageExterieur" 
+              checked={nettoyageExterieur}
+              onCheckedChange={(checked) => handleOptionChange('nettoyageExterieur', checked as boolean)}
+            />
+            <label htmlFor="nettoyageExterieur" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Nettoyage extérieur (+CHF 70)
+            </label>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Questions obligatoires</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div>
+            <label className="text-sm font-medium mb-2 block">
+              Y a-t-il une prise électrique accessible près du véhicule ? *
+            </label>
+            <Select value={priseElectrique} onValueChange={handlePriseElectriqueChange}>
+              <SelectTrigger>
+                <SelectValue placeholder="Sélectionner une réponse" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="oui">Oui</SelectItem>
+                <SelectItem value="non">Non</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div>
+            <label className="text-sm font-medium mb-2 block">
+              Notre équipe mobile peut-elle accéder facilement au véhicule ? *
+            </label>
+            <Select value={accesMobile} onValueChange={handleAccesMobileChange}>
+              <SelectTrigger>
+                <SelectValue placeholder="Sélectionner une réponse" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="oui">Oui, accès facile</SelectItem>
+                <SelectItem value="difficile">Accès difficile</SelectItem>
+                <SelectItem value="impossible">Accès impossible</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </CardContent>
+      </Card>
+
+      {vehicleType && selectedPack && (
+        <Card className="border-green-200 bg-green-50">
+          <CardContent className="pt-6">
+            <div className="text-center">
+              <p className="text-lg font-semibold text-green-800">
+                Total estimé: CHF {calculateTotal()}
+              </p>
+            </div>
+          </CardContent>
+        </Card>
       )}
 
       <div className="flex justify-between pt-6">
-        <Button
-          variant="outline"
-          onClick={onBack}
-          className="px-8 py-3 text-lg rounded-2xl"
-        >
+        <Button variant="outline" onClick={onBack}>
           Retour
         </Button>
-        
-        {isFormValid && (
-          <Button
-            onClick={onNext}
-            className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg rounded-2xl"
-          >
-            Continuer
-          </Button>
-        )}
+        <Button 
+          onClick={onNext} 
+          disabled={!isFormValid}
+          className="px-8"
+        >
+          Continuer
+        </Button>
       </div>
     </div>
   );
