@@ -87,7 +87,7 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
             'Produits écologiques'
           ],
           duration: '1-2 heures',
-          priceRange: 'À partir de 120 CHF'
+          priceRange: 'À partir de 50 CHF'
         };
       case 'nettoyage-matelas':
         return {
@@ -100,7 +100,7 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
             'Toutes tailles de matelas'
           ],
           duration: '1 heure',
-          priceRange: 'À partir de 100 CHF'
+          priceRange: 'À partir de 95 CHF'
         };
       case 'nettoyage-vitres':
         return {
@@ -152,7 +152,7 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
             'Produits spécialisés'
           ],
           duration: '1-2 heures',
-          priceRange: '100 CHF'
+          priceRange: '20 CHF par siège'
         };
       case 'nettoyage-toiture':
         return {
@@ -166,6 +166,19 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
           ],
           duration: '1 journée',
           priceRange: 'Sur devis - Dépend de la surface, du type de toiture et de l\'accessibilité'
+        };
+      case 'nettoyage-billard':
+        return {
+          description: 'Nettoyage professionnel du tapis de billard',
+          features: [
+            'Aspiration en douceur',
+            'Nettoyage spécialisé feutrine',
+            'Élimination poussière craie',
+            'Préservation qualité jeu',
+            'Matériel professionnel'
+          ],
+          duration: '1 heure',
+          priceRange: '130 CHF'
         };
       default:
         return {
@@ -231,6 +244,12 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
 
         <div className="space-y-6">
           <p className="text-gray-600">{details.description}</p>
+          
+          {/* Price section */}
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <h4 className="font-medium text-blue-800 mb-1">💰 Tarif</h4>
+            <p className="text-blue-700 font-semibold">{details.priceRange}</p>
+          </div>
 
           {/* Pack selection for vehicle service */}
           {service.id === 'nettoyage-vehicule' && (
