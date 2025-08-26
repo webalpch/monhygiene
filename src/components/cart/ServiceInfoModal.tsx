@@ -213,7 +213,6 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
       }
       addToCart(service, {}, price);
       onClose();
-      navigate('/fr/reservation');
     }
   };
 
@@ -222,7 +221,6 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
       await addToCart(service, formData, price);
       setIsFormModalOpen(false);
       onClose();
-      navigate('/fr/reservation');
     } catch (error) {
       console.error('Error adding to cart:', error);
     }
@@ -244,12 +242,6 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
 
         <div className="space-y-6">
           <p className="text-gray-600">{details.description}</p>
-          
-          {/* Price section */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <h4 className="font-medium text-blue-800 mb-1">💰 Tarif</h4>
-            <p className="text-blue-700 font-semibold">{details.priceRange}</p>
-          </div>
 
           {/* Pack selection for vehicle service */}
           {service.id === 'nettoyage-vehicule' && (
@@ -301,6 +293,17 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
             </div>
           )}
 
+          {/* Prix et durée */}
+          <div className="border-t pt-4 space-y-2">
+            <div className="flex justify-between text-sm">
+              <span className="text-gray-600">Prix:</span>
+              <span className="font-medium">{details.priceRange}</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-gray-600">Durée:</span>
+              <span className="font-medium">{details.duration}</span>
+            </div>
+          </div>
 
           <div className="flex gap-3">
             {onAddToCart && (
