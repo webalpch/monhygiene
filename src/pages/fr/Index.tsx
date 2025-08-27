@@ -54,7 +54,7 @@ const TrustSection = () => {
       </div>
       
       <div className="relative overflow-hidden">
-        <div className="flex animate-scroll-right space-x-12">
+        <div className="flex animate-scroll-right space-x-16">
           {duplicatedPartners.map((partner, index) => (
             <div key={`${partner.id}-${index}`} className="flex flex-col items-center min-w-[200px]">
               <img

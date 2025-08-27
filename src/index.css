@@ -666,16 +666,16 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-33.33%);
+    transform: translateX(-33.333333%);
   }
 }
 
 .animate-scroll-right {
-  animation: scroll-right-to-left 12s linear infinite;
+  animation: scroll-right-to-left 20s linear infinite;
 }
 
 @media (max-width: 768px) {
   .animate-scroll-right {
-    animation: scroll-right-to-left 4s linear infinite;
+    animation: scroll-right-to-left 8s linear infinite;
   }
 }
