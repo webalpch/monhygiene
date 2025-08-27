@@ -57,14 +57,12 @@ const TrustSection = () => {
         <div className="flex animate-scroll-right space-x-12">
           {duplicatedPartners.map((partner, index) => (
             <div key={`${partner.id}-${index}`} className="flex flex-col items-center min-w-[200px]">
-              <div className="w-24 h-24 lg:w-28 lg:h-28 bg-white rounded-xl shadow-lg flex items-center justify-center mb-3 p-3">
-                <img
-                  src={partner.logo}
-                  alt={partner.alt}
-                  className="object-contain w-full h-full"
-                  draggable={false}
-                />
-              </div>
+              <img
+                src={partner.logo}
+                alt={partner.alt}
+                className="object-contain w-24 h-24 lg:w-28 lg:h-28 mb-3"
+                draggable={false}
+              />
               <span className="text-sm text-gray-700 font-semibold text-center whitespace-nowrap">
                 {partner.name}
               </span>
