@@ -67,6 +67,8 @@ export const useCart = () => {
   };
 
   const addToCart = async (service: Service, formData?: Record<string, any>, estimatedPrice: number = 100) => {
+    console.log('Adding to cart:', service.name, estimatedPrice);
+    
     const newItem: CartItem = {
       id: `item_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       service,
@@ -77,11 +79,13 @@ export const useCart = () => {
 
     setCart(prev => {
       const newItems = [...prev.items, newItem];
-      return {
+      const newCart = {
         ...prev,
         items: newItems,
         totalPrice: calculateTotalPrice(newItems)
       };
+      console.log('Cart updated:', { itemCount: newCart.items.length, totalPrice: newCart.totalPrice });
+      return newCart;
     });
 
     toast({

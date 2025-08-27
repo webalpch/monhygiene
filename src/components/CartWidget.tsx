@@ -14,6 +14,8 @@ export const CartWidget = () => {
   const itemCount = cart.items.length;
   const totalPrice = cart.totalPrice;
 
+  console.log('CartWidget render:', { itemCount, totalPrice, cartId: cart.id });
+
   const handleGoToReservation = () => {
     setIsOpen(false);
     navigate('/fr/reservation');
