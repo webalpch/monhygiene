@@ -32,9 +32,22 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
   const calculatePrice = () => {
     switch (service.id) {
       case 'nettoyage-vehicule':
-        let vehiclePrice = 80; // Base price for Pack M
-        if (formData.pack === 'L') vehiclePrice = 120;
-        if (formData.pack === 'Premium') vehiclePrice = 180;
+        const vehicleType = formData.vehicleType || 'moyenne';
+        const pack = formData.pack;
+        
+        const pricing = {
+          petite: { M: 70, L: 110, Premium: 160 },
+          moyenne: { M: 80, L: 120, Premium: 180 },
+          grande: { M: 100, L: 140, Premium: 220 }
+        };
+        
+        let vehiclePrice = pricing[vehicleType as keyof typeof pricing]?.[pack as keyof typeof pricing.moyenne] || 0;
+        
+        // Add additional services
+        if (formData.poilsAnimaux) vehiclePrice += 10;
+        if (formData.traitementOzone) vehiclePrice += 80;
+        if (formData.nettoyageExterieur) vehiclePrice += 70;
+        
         return vehiclePrice;
 
       case 'nettoyage-canape':
@@ -83,7 +96,7 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
   const isFormValid = () => {
     switch (service.id) {
       case 'nettoyage-vehicule':
-        return formData.pack; // Pack obligatoire
+        return formData.vehicleType && formData.pack; // Type véhicule et pack obligatoires
       case 'nettoyage-canape':
         return formData.numberOfSeats; // Nombre de places obligatoire
       case 'nettoyage-matelas':
@@ -120,30 +133,91 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
         return (
           <div className="space-y-4">
             <div>
-              <Label htmlFor="pack">Forfait *</Label>
-              <Select onValueChange={(value) => updateFormData('pack', value)} value={formData.pack}>
+              <Label htmlFor="vehicleType">Type de véhicule *</Label>
+              <Select onValueChange={(value) => updateFormData('vehicleType', value)} value={formData.vehicleType}>
                 <SelectTrigger className="bg-white border-2 z-50">
-                  <SelectValue placeholder="Sélectionnez un pack..." />
+                  <SelectValue placeholder="Sélectionnez le type de véhicule..." />
                 </SelectTrigger>
                 <SelectContent className="bg-white border-2 shadow-lg z-50">
-                  <SelectItem value="M">Pack M - 80 CHF</SelectItem>
-                  <SelectItem value="L">Pack L - 120 CHF</SelectItem>
-                  <SelectItem value="Premium">Pack Premium - 180 CHF</SelectItem>
+                  <SelectItem value="petite">Petite voiture</SelectItem>
+                  <SelectItem value="moyenne">Moyenne voiture</SelectItem>
+                  <SelectItem value="grande">Grande voiture (SUV/Van)</SelectItem>
                 </SelectContent>
               </Select>
-              {!formData.pack && (
-                <p className="text-red-500 text-sm mt-1">⚠️ Veuillez sélectionner un pack</p>
+              {!formData.vehicleType && (
+                <p className="text-red-500 text-sm mt-1">⚠️ Veuillez sélectionner le type de véhicule</p>
               )}
             </div>
 
-            <div>
-              <Label htmlFor="notes">Notes spéciales</Label>
-              <Textarea 
-                id="notes"
-                placeholder="Informations complémentaires..."
-                onChange={(e) => updateFormData('notes', e.target.value)}
-              />
-            </div>
+            {formData.vehicleType && (
+              <div>
+                <Label htmlFor="pack">Forfait *</Label>
+                <Select onValueChange={(value) => updateFormData('pack', value)} value={formData.pack}>
+                  <SelectTrigger className="bg-white border-2 z-50">
+                    <SelectValue placeholder="Sélectionnez un pack..." />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white border-2 shadow-lg z-50">
+                    {formData.vehicleType === 'petite' && (
+                      <>
+                        <SelectItem value="M">Pack M - 70 CHF (1h)</SelectItem>
+                        <SelectItem value="L">Pack L - 110 CHF (2h)</SelectItem>
+                        <SelectItem value="Premium">Pack Premium - 160 CHF (3h)</SelectItem>
+                      </>
+                    )}
+                    {formData.vehicleType === 'moyenne' && (
+                      <>
+                        <SelectItem value="M">Pack M - 80 CHF (1h30)</SelectItem>
+                        <SelectItem value="L">Pack L - 120 CHF (2h30)</SelectItem>
+                        <SelectItem value="Premium">Pack Premium - 180 CHF (4h)</SelectItem>
+                      </>
+                    )}
+                    {formData.vehicleType === 'grande' && (
+                      <>
+                        <SelectItem value="M">Pack M - 100 CHF (2h)</SelectItem>
+                        <SelectItem value="L">Pack L - 140 CHF (3h)</SelectItem>
+                        <SelectItem value="Premium">Pack Premium - 220 CHF (5h)</SelectItem>
+                      </>
+                    )}
+                  </SelectContent>
+                </Select>
+                {!formData.pack && (
+                  <p className="text-red-500 text-sm mt-1">⚠️ Veuillez sélectionner un pack</p>
+                )}
+              </div>
+            )}
+
+            {formData.pack && (
+              <div className="space-y-3">
+                <Label>Services complémentaires</Label>
+                
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="poilsAnimaux"
+                    checked={formData.poilsAnimaux}
+                    onCheckedChange={(checked) => updateFormData('poilsAnimaux', checked)}
+                  />
+                  <Label htmlFor="poilsAnimaux">Poils d'animaux (+10 CHF)</Label>
+                </div>
+
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="traitementOzone"
+                    checked={formData.traitementOzone}
+                    onCheckedChange={(checked) => updateFormData('traitementOzone', checked)}
+                  />
+                  <Label htmlFor="traitementOzone">Traitement à l'Ozone (+80 CHF)</Label>
+                </div>
+
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="nettoyageExterieur"
+                    checked={formData.nettoyageExterieur}
+                    onCheckedChange={(checked) => updateFormData('nettoyageExterieur', checked)}
+                  />
+                  <Label htmlFor="nettoyageExterieur">Nettoyage extérieur (+70 CHF)</Label>
+                </div>
+              </div>
+            )}
           </div>
         );
 
