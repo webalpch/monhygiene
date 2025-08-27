@@ -37,8 +37,11 @@ export const CartWidget = () => {
     return details.length > 0 ? details.join(', ') : null;
   };
 
-  if (itemCount === 0) {
-    return null; // N'affiche pas le widget si le panier est vide
+  // Force showing the widget if there are items, even briefly
+  const shouldShowWidget = itemCount > 0;
+
+  if (!shouldShowWidget) {
+    return null;
   }
 
   return (

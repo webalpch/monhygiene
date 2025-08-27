@@ -45,6 +45,7 @@ export const useCart = () => {
     if (savedCart) {
       try {
         const parsed = JSON.parse(savedCart);
+        console.log('Loading cart from localStorage:', parsed);
         setCart(parsed);
       } catch (error) {
         console.error('Failed to load cart:', error);
@@ -52,11 +53,18 @@ export const useCart = () => {
     }
   }, []);
 
-  // Save cart to localStorage whenever it changes
+  // Save cart to localStorage whenever it changes, with debounce to avoid conflicts
   useEffect(() => {
-    if (cart.items.length > 0 || cart.address || cart.contactInfo) {
-      localStorage.setItem('reservationCart', JSON.stringify(cart));
-    }
+    const timeoutId = setTimeout(() => {
+      if (cart.items.length > 0 || cart.address || cart.contactInfo) {
+        console.log('Saving cart to localStorage:', cart);
+        localStorage.setItem('reservationCart', JSON.stringify(cart));
+      } else if (cart.items.length === 0 && !cart.address && !cart.contactInfo) {
+        localStorage.removeItem('reservationCart');
+      }
+    }, 100);
+    
+    return () => clearTimeout(timeoutId);
   }, [cart]);
 
   const calculateTotalPrice = (items: CartItem[]) => {
