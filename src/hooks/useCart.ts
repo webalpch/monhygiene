@@ -30,41 +30,36 @@ const generateSessionId = () => {
 };
 
 export const useCart = () => {
-  const [cart, setCart] = useState<Cart>({
-    id: '',
-    sessionId: generateSessionId(),
-    items: [],
-    totalPrice: 0
-  });
-  const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
-
-  // Load cart from localStorage on mount
-  useEffect(() => {
+  const [cart, setCart] = useState<Cart>(() => {
+    // Initialize from localStorage immediately
     const savedCart = localStorage.getItem('reservationCart');
     if (savedCart) {
       try {
         const parsed = JSON.parse(savedCart);
-        console.log('Loading cart from localStorage:', parsed);
-        setCart(parsed);
+        console.log('Initial cart from localStorage:', parsed);
+        return parsed;
       } catch (error) {
         console.error('Failed to load cart:', error);
       }
     }
-  }, []);
+    return {
+      id: '',
+      sessionId: generateSessionId(),
+      items: [],
+      totalPrice: 0
+    };
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
-  // Save cart to localStorage whenever it changes, with debounce to avoid conflicts
+  // Save to localStorage immediately on every cart change
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      if (cart.items.length > 0 || cart.address || cart.contactInfo) {
-        console.log('Saving cart to localStorage:', cart);
-        localStorage.setItem('reservationCart', JSON.stringify(cart));
-      } else if (cart.items.length === 0 && !cart.address && !cart.contactInfo) {
-        localStorage.removeItem('reservationCart');
-      }
-    }, 100);
-    
-    return () => clearTimeout(timeoutId);
+    console.log('Cart changed, saving to localStorage:', cart);
+    if (cart.items.length > 0 || cart.address || cart.contactInfo) {
+      localStorage.setItem('reservationCart', JSON.stringify(cart));
+    } else {
+      localStorage.removeItem('reservationCart');
+    }
   }, [cart]);
 
   const calculateTotalPrice = (items: CartItem[]) => {
@@ -85,15 +80,25 @@ export const useCart = () => {
       timestamp: Date.now()
     };
 
-    setCart(prev => {
-      const newItems = [...prev.items, newItem];
-      const newCart = {
-        ...prev,
+    // Force immediate update with functional state update
+    setCart(prevCart => {
+      const newItems = [...prevCart.items, newItem];
+      const newTotalPrice = calculateTotalPrice(newItems);
+      const updatedCart = {
+        ...prevCart,
         items: newItems,
-        totalPrice: calculateTotalPrice(newItems)
+        totalPrice: newTotalPrice
       };
-      console.log('Cart updated:', { itemCount: newCart.items.length, totalPrice: newCart.totalPrice });
-      return newCart;
+      console.log('Cart updated immediately:', { 
+        itemCount: updatedCart.items.length, 
+        totalPrice: updatedCart.totalPrice,
+        cartId: updatedCart.sessionId
+      });
+      
+      // Force immediate localStorage save
+      localStorage.setItem('reservationCart', JSON.stringify(updatedCart));
+      
+      return updatedCart;
     });
 
     toast({
