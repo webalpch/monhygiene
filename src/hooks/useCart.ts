@@ -52,7 +52,7 @@ export const useCart = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  // Save to localStorage immediately on every cart change with forced re-render
+  // Save to localStorage immediately on every cart change
   useEffect(() => {
     console.log('Cart changed, saving to localStorage:', cart);
     if (cart.items.length > 0 || cart.address || cart.contactInfo) {
@@ -60,9 +60,7 @@ export const useCart = () => {
     } else {
       localStorage.removeItem('reservationCart');
     }
-    // Force re-render by touching the cart object
-    setCart(prevCart => ({ ...prevCart }));
-  }, [cart.items.length, cart.totalPrice]);
+  }, [cart.items.length, cart.totalPrice, cart.address, cart.contactInfo]);
 
   const calculateTotalPrice = (items: CartItem[]) => {
     const servicesOnQuote = ['nettoyage-terrasse', 'nettoyage-toiture', 'autres-services', 'nettoyage-vitres', 'nettoyage-moquette-tapis'];

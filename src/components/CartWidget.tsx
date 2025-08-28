@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ShoppingCart, X, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,13 +8,19 @@ import { Badge } from '@/components/ui/badge';
 
 export const CartWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [forceRender, setForceRender] = useState(0);
   const { cart, removeFromCart } = useCart();
   const navigate = useNavigate();
 
   const itemCount = cart.items.length;
   const totalPrice = cart.totalPrice;
 
-  console.log('CartWidget render:', { itemCount, totalPrice, cartId: cart.id });
+  // Force re-render when cart changes
+  useEffect(() => {
+    setForceRender(prev => prev + 1);
+  }, [cart.items.length, cart.totalPrice]);
+
+  console.log('CartWidget render:', { itemCount, totalPrice, cartId: cart.id, forceRender });
 
   const handleGoToReservation = () => {
     setIsOpen(false);
@@ -48,6 +54,7 @@ export const CartWidget = () => {
           onClick={() => setIsOpen(true)}
           className="relative h-14 w-14 rounded-full bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-200"
           size="icon"
+          key={forceRender} // Force re-render when this changes
         >
           <ShoppingCart className="h-6 w-6 text-white" />
           {itemCount > 0 && (
