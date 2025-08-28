@@ -197,7 +197,7 @@ export const ReservationModal = ({ isOpen, onClose }: ReservationModalProps) => 
         <DialogContent className="max-w-[98vw] sm:max-w-6xl lg:max-w-7xl max-h-[95vh] sm:max-h-[90vh] p-0 overflow-hidden rounded-lg sm:rounded-2xl mx-2 sm:mx-auto"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="h-full flex flex-col min-h-[400px]">
+          <div className="h-full flex flex-col min-h-[400px] max-h-[95vh]">
             <div className="flex-shrink-0 p-3 sm:p-4 lg:p-6 border-b">
               {/* Progress Indicator */}
               <div className="flex items-center justify-center space-x-2 sm:space-x-4 overflow-x-auto">
@@ -222,7 +222,7 @@ export const ReservationModal = ({ isOpen, onClose }: ReservationModalProps) => 
               </div>
             </div>
             
-            <div className="flex-1 overflow-y-auto p-3 sm:p-4 lg:p-6 scrollbar-thin scrollbar-thumb-primary/20 pb-20">
+            <div className="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-4 lg:p-6 pb-20 touch-pan-y" style={{ WebkitOverflowScrolling: 'touch' }}>
               {renderCurrentStep()}
             </div>
           </div>
