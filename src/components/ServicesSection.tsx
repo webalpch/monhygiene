@@ -41,6 +41,7 @@ const ServicesSection = () => {
           <CleanServicesCarousel
             services={services}
             onServiceClick={handleAddToCartAndReserve}
+            onAddToCart={addToCart}
           />
         </div>
 

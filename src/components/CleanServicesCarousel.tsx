@@ -11,11 +11,13 @@ import { ServiceInfoModal } from "@/components/cart/ServiceInfoModal";
 interface CleanServicesCarouselProps {
   services: Service[];
   onServiceClick: (service: Service) => void;
+  onAddToCart?: (service: Service) => void;
 }
 
 const CleanServicesCarousel: React.FC<CleanServicesCarouselProps> = ({
   services,
   onServiceClick,
+  onAddToCart,
 }) => {
   const [infoService, setInfoService] = useState<Service | null>(null);
   const [emblaRef, emblaApi] = useEmblaCarousel(
@@ -129,7 +131,7 @@ const CleanServicesCarousel: React.FC<CleanServicesCarouselProps> = ({
         service={infoService}
         isOpen={!!infoService}
         onClose={() => setInfoService(null)}
-        onAddToCart={() => {}}
+        onAddToCart={onAddToCart}
       />
     </div>
   );
