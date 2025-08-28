@@ -46,7 +46,7 @@ const TrustSection = () => {
   const duplicatedPartners = [...partners, ...partners, ...partners];
 
   return (
-    <section className="section-padding bg-gradient-to-r from-white to-blue-50 border-t border-gray-200">
+    <section className="section-padding bg-transparent border-t border-gray-200">
       <div className="max-w-4xl mx-auto text-center mb-12">
         <h2 className="text-2xl md:text-3xl font-bold mb-10 text-gray-800">
           Ils nous ont fait confiance et sont satisfaits :
