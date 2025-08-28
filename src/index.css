@@ -660,33 +660,33 @@
   }
 }
 
-/* Trust section scrolling animation - Plus fluide */
-@keyframes scroll-right-to-left {
+/* Trust section scrolling animation - Défilement continu et rapide */
+@keyframes scroll-infinite {
   0% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translateX(-20%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
 .animate-scroll-right {
-  animation: scroll-right-to-left 25s linear infinite;
+  animation: scroll-infinite 15s linear infinite;
   will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
-/* Plus rapide sur mobile pour éviter les saccades */
+/* Encore plus rapide sur mobile */
 @media (max-width: 768px) {
   .animate-scroll-right {
-    animation: scroll-right-to-left 12s linear infinite;
+    animation: scroll-infinite 8s linear infinite;
   }
 }
 
-/* Amélioration pour les appareils haute fréquence */
+/* Optimisation pour les appareils haute fréquence */
 @media (prefers-reduced-motion: no-preference) {
   .animate-scroll-right {
     animation-timing-function: linear;
-    backface-visibility: hidden;
-    perspective: 1000px;
   }
 }
