@@ -230,7 +230,7 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-[95vw] sm:max-w-lg max-h-[90vh] overflow-hidden mx-2 sm:mx-auto">
         <div className="overflow-y-auto max-h-[80vh] scrollbar-thin scrollbar-thumb-primary/20">
-          <DialogHeader className="sticky top-0 bg-white z-10 pb-4">
+          <DialogHeader className="sticky top-0 z-10 pb-4">
             <DialogTitle className="flex items-center space-x-3">
               {IconComponent && (
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
