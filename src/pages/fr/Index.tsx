@@ -42,8 +42,8 @@ const TrustSection = () => {
     }
   ];
 
-  // Dupliquer les partenaires 10 fois pour un défilement parfaitement continu
-  const duplicatedPartners = Array(10).fill(partners).flat();
+  // Créer deux sets identiques pour un défilement parfaitement continu
+  const duplicatedPartners = [...partners, ...partners];
 
   return (
     <section className="section-padding bg-transparent border-t border-gray-200">
@@ -54,9 +54,9 @@ const TrustSection = () => {
       </div>
       
       <div className="relative overflow-hidden">
-        <div className="flex animate-scroll-right gap-8 sm:gap-12 lg:gap-16">
+        <div className="flex animate-scroll-right">
           {duplicatedPartners.map((partner, index) => (
-            <div key={`${partner.id}-${index}`} className="flex flex-col items-center min-w-[140px] sm:min-w-[180px] lg:min-w-[200px] flex-shrink-0">
+            <div key={`${partner.id}-${index}`} className="flex flex-col items-center min-w-[140px] sm:min-w-[180px] lg:min-w-[200px] flex-shrink-0 mx-4 sm:mx-6 lg:mx-8">
               <img
                 src={partner.logo}
                 alt={partner.alt}
