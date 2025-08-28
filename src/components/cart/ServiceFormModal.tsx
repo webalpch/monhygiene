@@ -257,25 +257,14 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
                   <SelectValue placeholder="Sélectionnez..." />
                 </SelectTrigger>
                 <SelectContent className="bg-white border-2 shadow-lg z-50">
-                  <SelectItem value="90-120">90 cm à 120 cm (95 CHF)</SelectItem>
-                  <SelectItem value="140-160">140 cm à 160 cm (135 CHF)</SelectItem>
-                  <SelectItem value="180-200">180 cm à 200 cm (145 CHF)</SelectItem>
+                  <SelectItem value="90-120">90-120 cm (95 CHF)</SelectItem>
+                  <SelectItem value="140-160">140-160 cm (135 CHF)</SelectItem>
+                  <SelectItem value="180-200">180-200 cm (145 CHF)</SelectItem>
                 </SelectContent>
               </Select>
               {!formData.matressSize && (
                 <p className="text-red-500 text-sm mt-1">⚠️ Veuillez sélectionner la taille du matelas</p>
               )}
-            </div>
-
-            <div>
-              <Label htmlFor="numberOfMatresses">Nombre de matelas</Label>
-              <Input 
-                id="numberOfMatresses"
-                type="number"
-                min="1"
-                defaultValue="1"
-                onChange={(e) => updateFormData('numberOfMatresses', e.target.value)}
-              />
             </div>
           </div>
         );
@@ -285,14 +274,12 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
           <div className="space-y-4">
             <div>
               <Label htmlFor="numberOfRooms">Nombre de pièces *</Label>
-              <Input 
-                id="numberOfRooms"
+              <Input
                 type="number"
-                min="1"
-                placeholder="3"
+                id="numberOfRooms"
+                placeholder="Nombre de pièces"
                 value={formData.numberOfRooms || ''}
                 onChange={(e) => updateFormData('numberOfRooms', e.target.value)}
-                className="bg-white border-2"
               />
               {!formData.numberOfRooms && (
                 <p className="text-red-500 text-sm mt-1">⚠️ Veuillez indiquer le nombre de pièces</p>
@@ -300,19 +287,21 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
             </div>
 
             <div className="flex items-center space-x-2">
-              <Checkbox 
-                id="deepCleaning"
+              <Checkbox
+                id="hasDeepCleaning"
+                checked={formData.hasDeepCleaning}
                 onCheckedChange={(checked) => updateFormData('hasDeepCleaning', checked)}
               />
-              <Label htmlFor="deepCleaning">Nettoyage en profondeur (+100 CHF)</Label>
+              <Label htmlFor="hasDeepCleaning">Nettoyage en profondeur (+100 CHF)</Label>
             </div>
 
             <div className="flex items-center space-x-2">
-              <Checkbox 
-                id="windowCleaning"
+              <Checkbox
+                id="hasWindowCleaning"
+                checked={formData.hasWindowCleaning}
                 onCheckedChange={(checked) => updateFormData('hasWindowCleaning', checked)}
               />
-              <Label htmlFor="windowCleaning">Nettoyage des vitres (+80 CHF)</Label>
+              <Label htmlFor="hasWindowCleaning">Nettoyage des vitres (+80 CHF)</Label>
             </div>
           </div>
         );
@@ -321,15 +310,13 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
         return (
           <div className="space-y-4">
             <div>
-              <Label htmlFor="surface">Surface en m² *</Label>
-              <Input 
-                id="surface"
+              <Label htmlFor="surface">Surface (m²) *</Label>
+              <Input
                 type="number"
-                min="20"
-                placeholder="100"
+                id="surface"
+                placeholder="Surface en m²"
                 value={formData.surface || ''}
                 onChange={(e) => updateFormData('surface', e.target.value)}
-                className="bg-white border-2"
               />
               {!formData.surface && (
                 <p className="text-red-500 text-sm mt-1">⚠️ Veuillez indiquer la surface</p>
@@ -343,8 +330,9 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
                   <SelectValue placeholder="Sélectionnez..." />
                 </SelectTrigger>
                 <SelectContent className="bg-white border-2 shadow-lg z-50">
-                  <SelectItem value="one-time">Ponctuel</SelectItem>
+                  <SelectItem value="once">Une seule fois</SelectItem>
                   <SelectItem value="weekly">Hebdomadaire (-20%)</SelectItem>
+                  <SelectItem value="biweekly">Bi-hebdomadaire</SelectItem>
                   <SelectItem value="monthly">Mensuel</SelectItem>
                 </SelectContent>
               </Select>
@@ -360,36 +348,16 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
           <div className="space-y-4">
             <div>
               <Label htmlFor="surfaceType">Type de revêtement *</Label>
-              <Select onValueChange={(value) => updateFormData('surfaceType', value)} value={formData.surfaceType}>
-                <SelectTrigger className="bg-white border-2 z-50">
-                  <SelectValue placeholder="Sélectionnez le type de revêtement..." />
-                </SelectTrigger>
-                <SelectContent className="bg-white border-2 shadow-lg z-50">
-                  <SelectItem value="bois">Bois</SelectItem>
-                  <SelectItem value="pierre">Pierre</SelectItem>
-                  <SelectItem value="carrelage">Carrelage</SelectItem>
-                  <SelectItem value="beton">Béton</SelectItem>
-                  <SelectItem value="autre">Autre</SelectItem>
-                </SelectContent>
-              </Select>
-              {!formData.surfaceType && (
-                <p className="text-red-500 text-sm mt-1">⚠️ Veuillez sélectionner le type de revêtement</p>
-              )}
-            </div>
-
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <p className="text-blue-800 text-sm font-medium">
-                Prix sur devis en fonction de la taille et de la surface de votre terrasse.
-              </p>
-            </div>
-
-            <div>
-              <Label htmlFor="notes">Notes spéciales</Label>
-              <Textarea 
-                id="notes"
-                placeholder="Taille approximative, état de la terrasse, demandes spéciales..."
-                onChange={(e) => updateFormData('notes', e.target.value)}
+              <Input
+                type="text"
+                id="surfaceType"
+                placeholder="Type de revêtement"
+                value={formData.surfaceType || ''}
+                onChange={(e) => updateFormData('surfaceType', e.target.value)}
               />
+              {!formData.surfaceType && (
+                <p className="text-red-500 text-sm mt-1">⚠️ Veuillez indiquer le type de revêtement</p>
+              )}
             </div>
           </div>
         );
@@ -399,31 +367,145 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
           <div className="space-y-4">
             <div>
               <Label htmlFor="numberOfSeats">Nombre de sièges *</Label>
-              <Select onValueChange={(value) => updateFormData('numberOfSeats', value)} value={formData.numberOfSeats}>
-                <SelectTrigger className="bg-white border-2 z-50">
-                  <SelectValue placeholder="Sélectionnez..." />
-                </SelectTrigger>
-                <SelectContent className="bg-white border-2 shadow-lg z-50">
-                  <SelectItem value="1">1 siège (20 CHF)</SelectItem>
-                  <SelectItem value="2">2 sièges (40 CHF)</SelectItem>
-                  <SelectItem value="3">3 sièges (60 CHF)</SelectItem>
-                  <SelectItem value="4">4 sièges (80 CHF)</SelectItem>
-                  <SelectItem value="5">5 sièges (100 CHF)</SelectItem>
-                  <SelectItem value="6">6 sièges (120 CHF)</SelectItem>
-                  <SelectItem value="7">7 sièges (140 CHF)</SelectItem>
-                </SelectContent>
-              </Select>
+              <Input
+                type="number"
+                id="numberOfSeats"
+                placeholder="Nombre de sièges"
+                value={formData.numberOfSeats || ''}
+                onChange={(e) => updateFormData('numberOfSeats', e.target.value)}
+              />
               {!formData.numberOfSeats && (
-                <p className="text-red-500 text-sm mt-1">⚠️ Veuillez sélectionner le nombre de sièges</p>
+                <p className="text-red-500 text-sm mt-1">⚠️ Veuillez indiquer le nombre de sièges</p>
               )}
             </div>
+          </div>
+        );
 
+      case 'nettoyage-toiture':
+        return (
+          <div className="space-y-4">
             <div>
-              <Label htmlFor="notes">Notes spéciales</Label>
-              <Textarea 
-                id="notes"
-                placeholder="Type de véhicule, état des sièges, demandes spéciales..."
-                onChange={(e) => updateFormData('notes', e.target.value)}
+              <Label htmlFor="roofType">Type de toiture</Label>
+              <Input
+                type="text"
+                id="roofType"
+                placeholder="Type de toiture"
+                value={formData.roofType || ''}
+                onChange={(e) => updateFormData('roofType', e.target.value)}
+              />
+            </div>
+            <div>
+              <Label htmlFor="roofSurface">Surface de la toiture (m²)</Label>
+              <Input
+                type="number"
+                id="roofSurface"
+                placeholder="Surface en m²"
+                value={formData.roofSurface || ''}
+                onChange={(e) => updateFormData('roofSurface', e.target.value)}
+              />
+            </div>
+            <div>
+              <Label htmlFor="accessDifficulty">Difficulté d'accès</Label>
+              <Textarea
+                id="accessDifficulty"
+                placeholder="Décrivez la difficulté d'accès"
+                value={formData.accessDifficulty || ''}
+                onChange={(e) => updateFormData('accessDifficulty', e.target.value)}
+              />
+            </div>
+          </div>
+        );
+
+      case 'autres-services':
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="serviceDescription">Description du service souhaité</Label>
+              <Textarea
+                id="serviceDescription"
+                placeholder="Décrivez le service que vous recherchez"
+                value={formData.serviceDescription || ''}
+                onChange={(e) => updateFormData('serviceDescription', e.target.value)}
+              />
+            </div>
+            <div>
+              <Label htmlFor="surfaceArea">Surface à nettoyer (m²)</Label>
+              <Input
+                type="number"
+                id="surfaceArea"
+                placeholder="Surface en m²"
+                value={formData.surfaceArea || ''}
+                onChange={(e) => updateFormData('surfaceArea', e.target.value)}
+              />
+            </div>
+          </div>
+        );
+
+      case 'nettoyage-vitres':
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="numberOfWindows">Nombre de fenêtres</Label>
+              <Input
+                type="number"
+                id="numberOfWindows"
+                placeholder="Nombre de fenêtres"
+                value={formData.numberOfWindows || ''}
+                onChange={(e) => updateFormData('numberOfWindows', e.target.value)}
+              />
+            </div>
+            <div>
+              <Label htmlFor="windowType">Type de fenêtres</Label>
+              <Input
+                type="text"
+                id="windowType"
+                placeholder="Type de fenêtres"
+                value={formData.windowType || ''}
+                onChange={(e) => updateFormData('windowType', e.target.value)}
+              />
+            </div>
+            <div>
+              <Label htmlFor="accessDifficulty">Difficulté d'accès</Label>
+              <Textarea
+                id="accessDifficulty"
+                placeholder="Décrivez la difficulté d'accès"
+                value={formData.accessDifficulty || ''}
+                onChange={(e) => updateFormData('accessDifficulty', e.target.value)}
+              />
+            </div>
+          </div>
+        );
+
+      case 'nettoyage-moquette-tapis':
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="surfaceArea">Surface (m²)</Label>
+              <Input
+                type="number"
+                id="surfaceArea"
+                placeholder="Surface en m²"
+                value={formData.surfaceArea || ''}
+                onChange={(e) => updateFormData('surfaceArea', e.target.value)}
+              />
+            </div>
+            <div>
+              <Label htmlFor="materialType">Type de matériau</Label>
+              <Input
+                type="text"
+                id="materialType"
+                placeholder="Type de matériau"
+                value={formData.materialType || ''}
+                onChange={(e) => updateFormData('materialType', e.target.value)}
+              />
+            </div>
+            <div>
+              <Label htmlFor="stainDescription">Description des taches</Label>
+              <Textarea
+                id="stainDescription"
+                placeholder="Décrivez les taches"
+                value={formData.stainDescription || ''}
+                onChange={(e) => updateFormData('stainDescription', e.target.value)}
               />
             </div>
           </div>
@@ -436,41 +518,49 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-[95vw] sm:max-w-md max-h-[90vh] flex flex-col p-0"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <DialogHeader className="px-6 pt-6 pb-4 flex-shrink-0">
-          <DialogTitle>Configuration - {service.name}</DialogTitle>
+      <DialogContent className="max-w-[95vw] sm:max-w-lg max-h-[90vh] mx-2 sm:mx-auto flex flex-col">
+        <DialogHeader className="px-4 sm:px-6 pt-4 sm:pt-6 pb-4 flex-shrink-0">
+          <DialogTitle className="text-lg sm:text-xl">Configuration - {service.name}</DialogTitle>
         </DialogHeader>
 
-        <div className="flex-1 overflow-y-auto px-6 pb-6 scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent">
-          <div className="space-y-6">
+        <div className="flex-1 overflow-y-auto px-4 sm:px-6 pb-4 sm:pb-6 scrollbar-thin scrollbar-thumb-primary/20">
+          <div className="space-y-4 sm:space-y-6">
             {renderForm()}
 
-            <div className="border-t pt-4">
-              <div className="flex justify-between items-center text-lg font-semibold">
-                <span>Prix estimé:</span>
-                <span className="text-primary">
-                  {['nettoyage-terrasse', 'nettoyage-toiture', 'autres-services', 'nettoyage-vitres', 'nettoyage-moquette-tapis'].includes(service.id) 
-                    ? 'Sur devis' 
-                    : `${calculatePrice()} CHF`}
-                </span>
+            {calculatePrice() > 0 && (
+              <div className="bg-green-50 border border-green-200 rounded-lg p-3 sm:p-4">
+                <div className="flex justify-between items-center">
+                  <span className="font-medium text-green-800">Prix estimé:</span>
+                  <span className="font-bold text-green-800 text-lg">{calculatePrice()} CHF</span>
+                </div>
               </div>
-            </div>
-
-            <div className="flex space-x-2 sticky bottom-0 bg-white pt-4">
-              <Button variant="outline" onClick={onClose} className="flex-1">
-                Annuler
-              </Button>
-              <Button 
-                onClick={handleSubmit} 
-                disabled={!isFormValid()}
-                className={`flex-1 ${!isFormValid() ? 'opacity-50 cursor-not-allowed' : ''}`}
-              >
-                {!isFormValid() ? 'Sélectionnez les options obligatoires' : 'Ajouter au panier'}
-              </Button>
-            </div>
+            )}
+            
+            {calculatePrice() === 0 && (
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 sm:p-4">
+                <p className="text-blue-800 text-sm font-medium">
+                  Prix sur devis - Nous vous contacterons pour établir un devis personnalisé.
+                </p>
+              </div>
+            )}
           </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-3 p-4 sm:p-6 pt-0 border-t bg-white">
+          <Button 
+            variant="outline" 
+            onClick={onClose}
+            className="flex-1 min-h-[44px]"
+          >
+            Annuler
+          </Button>
+          <Button 
+            onClick={handleSubmit} 
+            disabled={!isFormValid()}
+            className="flex-1 min-h-[44px]"
+          >
+            {!isFormValid() ? 'Sélectionnez les options obligatoires' : 'Ajouter au panier'}
+          </Button>
         </div>
       </DialogContent>
     </Dialog>

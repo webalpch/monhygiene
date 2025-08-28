@@ -194,38 +194,36 @@ export const ReservationModal = ({ isOpen, onClose }: ReservationModalProps) => 
   return (
     <>
       <Dialog open={isOpen} onOpenChange={handleClose}>
-        <DialogContent className="max-w-[98vw] sm:max-w-6xl lg:max-w-7xl min-h-[90vh] max-h-[95vh] p-0 overflow-hidden rounded-2xl sm:rounded-3xl"
+        <DialogContent className="max-w-[98vw] sm:max-w-6xl lg:max-w-7xl h-[95vh] sm:h-[90vh] p-0 overflow-hidden rounded-lg sm:rounded-2xl mx-2 sm:mx-auto"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="overflow-y-auto max-h-[95vh] scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent">
-            <div className="p-2 sm:p-4 lg:p-6">
+          <div className="h-full flex flex-col">
+            <div className="flex-shrink-0 p-3 sm:p-4 lg:p-6 border-b">
               {/* Progress Indicator */}
-              <div className="mb-4 sm:mb-6">
-                <div className="flex items-center justify-center space-x-2 sm:space-x-4 overflow-x-auto pb-2">
-                  {steps.map((step, index) => (
-                    <div key={step} className="flex items-center flex-shrink-0">
-                      <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-medium ${
-                        steps.indexOf(currentStep) >= index 
-                          ? 'bg-primary text-white' 
-                          : 'bg-gray-200 text-gray-500'
-                      }`}>
-                        {index + 1}
-                      </div>
-                      {index < steps.length - 1 && (
-                        <div className={`w-4 sm:w-8 h-0.5 mx-1 sm:mx-2 ${
-                          steps.indexOf(currentStep) > index 
-                            ? 'bg-primary' 
-                            : 'bg-gray-200'
-                        }`} />
-                      )}
+              <div className="flex items-center justify-center space-x-2 sm:space-x-4 overflow-x-auto">
+                {steps.map((step, index) => (
+                  <div key={step} className="flex items-center flex-shrink-0">
+                    <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-medium ${
+                      steps.indexOf(currentStep) >= index 
+                        ? 'bg-primary text-white' 
+                        : 'bg-gray-200 text-gray-500'
+                    }`}>
+                      {index + 1}
                     </div>
-                  ))}
-                </div>
+                    {index < steps.length - 1 && (
+                      <div className={`w-4 sm:w-8 h-0.5 mx-1 sm:mx-2 ${
+                        steps.indexOf(currentStep) > index 
+                          ? 'bg-primary' 
+                          : 'bg-gray-200'
+                      }`} />
+                    )}
+                  </div>
+                ))}
               </div>
-              
-              <div className="mt-2 sm:mt-4">
-                {renderCurrentStep()}
-              </div>
+            </div>
+            
+            <div className="flex-1 overflow-y-auto p-3 sm:p-4 lg:p-6 scrollbar-thin scrollbar-thumb-primary/20">
+              {renderCurrentStep()}
             </div>
           </div>
         </DialogContent>

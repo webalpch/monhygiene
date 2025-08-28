@@ -228,98 +228,100 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-lg">
-        <DialogHeader>
-          <DialogTitle className="flex items-center space-x-3">
-            {IconComponent && (
-              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                <IconComponent className="w-6 h-6 text-primary" />
+      <DialogContent className="max-w-[95vw] sm:max-w-lg max-h-[90vh] overflow-hidden mx-2 sm:mx-auto">
+        <div className="overflow-y-auto max-h-[80vh] scrollbar-thin scrollbar-thumb-primary/20">
+          <DialogHeader className="sticky top-0 bg-white z-10 pb-4">
+            <DialogTitle className="flex items-center space-x-3">
+              {IconComponent && (
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <IconComponent className="w-6 h-6 text-primary" />
+                </div>
+              )}
+              <span>{service.name}</span>
+            </DialogTitle>
+          </DialogHeader>
+
+          <div className="space-y-6 px-1">
+            <p className="text-gray-600">{details.description}</p>
+
+            {/* Pack selection for vehicle service */}
+            {service.id === 'nettoyage-vehicule' && (
+              <div>
+                <h4 className="font-medium mb-3">Nos forfaits</h4>
+                <div className="space-y-2">
+                  {Object.entries(packs).map(([packType, packData]) => (
+                    <Collapsible key={packType}>
+                      <CollapsibleTrigger 
+                        className="w-full flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 transition-colors"
+                        onClick={() => setSelectedPack(selectedPack === packType ? null : packType)}
+                      >
+                        <div className="flex items-center space-x-3">
+                          <span className="font-medium">Pack {packType}</span>
+                          
+                        </div>
+                        <ChevronDown className={`h-4 w-4 transition-transform ${selectedPack === packType ? 'rotate-180' : ''}`} />
+                      </CollapsibleTrigger>
+                      <CollapsibleContent className={selectedPack === packType ? 'block' : 'hidden'}>
+                        <div className="p-3 border-l-2 border-primary/20 ml-3 mt-2">
+                          <ul className="space-y-1">
+                            {packData.features.map((feature, index) => (
+                              <li key={index} className="flex items-center space-x-2 text-sm text-gray-600">
+                                <div className="w-1.5 h-1.5 bg-primary rounded-full" />
+                                <span>{feature}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </CollapsibleContent>
+                    </Collapsible>
+                  ))}
+                </div>
               </div>
             )}
-            <span>{service.name}</span>
-          </DialogTitle>
-        </DialogHeader>
 
-        <div className="space-y-6">
-          <p className="text-gray-600">{details.description}</p>
+            {/* Default features for other services */}
+            {service.id !== 'nettoyage-vehicule' && (
+              <div>
+                <h4 className="font-medium mb-2">Prestations incluses</h4>
+                <ul className="space-y-1">
+                  {details.features.map((feature, index) => (
+                    <li key={index} className="flex items-center space-x-2 text-sm text-gray-600">
+                      <div className="w-1.5 h-1.5 bg-primary rounded-full" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
-          {/* Pack selection for vehicle service */}
-          {service.id === 'nettoyage-vehicule' && (
-            <div>
-              <h4 className="font-medium mb-3">Nos forfaits</h4>
-              <div className="space-y-2">
-                {Object.entries(packs).map(([packType, packData]) => (
-                  <Collapsible key={packType}>
-                    <CollapsibleTrigger 
-                      className="w-full flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 transition-colors"
-                      onClick={() => setSelectedPack(selectedPack === packType ? null : packType)}
-                    >
-                      <div className="flex items-center space-x-3">
-                        <span className="font-medium">Pack {packType}</span>
-                        
-                      </div>
-                      <ChevronDown className={`h-4 w-4 transition-transform ${selectedPack === packType ? 'rotate-180' : ''}`} />
-                    </CollapsibleTrigger>
-                    <CollapsibleContent className={selectedPack === packType ? 'block' : 'hidden'}>
-                      <div className="p-3 border-l-2 border-primary/20 ml-3 mt-2">
-                        <ul className="space-y-1">
-                          {packData.features.map((feature, index) => (
-                            <li key={index} className="flex items-center space-x-2 text-sm text-gray-600">
-                              <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-                              <span>{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </CollapsibleContent>
-                  </Collapsible>
-                ))}
+            {/* Prix et durée */}
+            <div className="border-t pt-4 space-y-2">
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-600">Prix:</span>
+                <span className="font-medium">{details.priceRange}</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-600">Durée:</span>
+                <span className="font-medium">{details.duration}</span>
               </div>
             </div>
-          )}
 
-          {/* Default features for other services */}
-          {service.id !== 'nettoyage-vehicule' && (
-            <div>
-              <h4 className="font-medium mb-2">Prestations incluses</h4>
-              <ul className="space-y-1">
-                {details.features.map((feature, index) => (
-                  <li key={index} className="flex items-center space-x-2 text-sm text-gray-600">
-                    <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
+            <div className="flex flex-col sm:flex-row gap-3 sticky bottom-0 bg-white pt-4">
+              <Button 
+                onClick={handleAddToCart}
+                className="flex-1 min-h-[44px]"
+              >
+                <ShoppingCart className="w-4 h-4 mr-2" />
+                Ajouter au panier
+              </Button>
+              <Button 
+                variant="outline" 
+                onClick={onClose} 
+                className="flex-1 min-h-[44px]"
+              >
+                Fermer
+              </Button>
             </div>
-          )}
-
-          {/* Prix et durée */}
-          <div className="border-t pt-4 space-y-2">
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-600">Prix:</span>
-              <span className="font-medium">{details.priceRange}</span>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-600">Durée:</span>
-              <span className="font-medium">{details.duration}</span>
-            </div>
-          </div>
-
-          <div className="flex gap-3">
-            <Button 
-              onClick={handleAddToCart}
-              className="flex-1"
-            >
-              <ShoppingCart className="w-4 h-4 mr-2" />
-              Ajouter au panier
-            </Button>
-            <Button 
-              variant="outline" 
-              onClick={onClose} 
-              className="flex-1"
-            >
-              Fermer
-            </Button>
           </div>
         </div>
       </DialogContent>
