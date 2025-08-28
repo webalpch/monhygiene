@@ -60,7 +60,8 @@ const TrustSection = () => {
               <img
                 src={partner.logo}
                 alt={partner.alt}
-                className="object-contain w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 mb-2 lg:mb-3 transform-gpu"
+                className="object-contain w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 mb-2 lg:mb-3 transform-gpu"
+                style={{ objectFit: 'contain', minWidth: '80px', minHeight: '80px' }}
                 draggable={false}
               />
               <span className="text-xs sm:text-sm text-gray-700 font-semibold text-center whitespace-nowrap px-2">
