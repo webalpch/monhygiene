@@ -7,19 +7,19 @@ const TrustSection = () => {
     {
       id: 1,
       name: "État du Valais",
-      logo: "/clients/valais.png",
+      logo: "/public/clients/valais.png",
       alt: "Logo Canton du Valais"
     },
     {
       id: 2,
       name: "Car Center – Ardon",
-      logo: "/clients/carcenter.png",
+      logo: "/public/clients/carcenter.png",
       alt: "Car Center Ardon"
     },
     {
       id: 3,
       name: "Alexprod – Sierre",
-      logo: "/clients/alexprod.png",
+      logo: "/public/clients/alexprod.png",
       alt: "Logo Alexprod Sierre"
     },
     {
