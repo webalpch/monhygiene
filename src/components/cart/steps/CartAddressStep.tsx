@@ -9,6 +9,7 @@ interface CartAddressStepProps {
   address: MapboxAddress | null;
   onAddressSelect: (address: MapboxAddress) => void;
   onNext: () => void;
+  onBack?: () => void;
 }
 interface MapboxSuggestion {
   id: string;
@@ -25,7 +26,8 @@ interface MapboxSuggestion {
 export const CartAddressStep: React.FC<CartAddressStepProps> = ({
   address,
   onAddressSelect,
-  onNext
+  onNext,
+  onBack
 }) => {
   const [searchValue, setSearchValue] = useState('');
   const [suggestions, setSuggestions] = useState<MapboxSuggestion[]>([]);

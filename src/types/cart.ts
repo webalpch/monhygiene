@@ -21,4 +21,4 @@ export interface Cart {
   };
 }
 
-export type CartStep = 'address' | 'services' | 'schedule' | 'contact';
+export type CartStep = 'services' | 'address' | 'schedule' | 'contact';

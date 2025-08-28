@@ -27,12 +27,12 @@ export const ReservationModal = ({ isOpen, onClose }: ReservationModalProps) => 
     clearCart
   } = useCart();
 
-  const [currentStep, setCurrentStep] = useState<CartStep>(cart.items.length > 0 ? 'services' : 'address');
+  const [currentStep, setCurrentStep] = useState<CartStep>('services');
   const [selectedSlot, setSelectedSlot] = useState<{ date: Date; period: 'morning' | 'afternoon' } | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const [createdReservationId, setCreatedReservationId] = useState<string | null>(null);
 
-  const steps: CartStep[] = ['address', 'services', 'schedule', 'contact'];
+  const steps: CartStep[] = ['services', 'address', 'schedule', 'contact'];
 
   const goToNextStep = () => {
     const currentIndex = steps.indexOf(currentStep);
@@ -59,10 +59,10 @@ export const ReservationModal = ({ isOpen, onClose }: ReservationModalProps) => 
 
   const canProceedToStep = (step: CartStep): boolean => {
     switch (step) {
-      case 'address':
-        return true;
       case 'services':
-        return !!cart.address || cart.items.length > 0; // Permet d'accéder aux services si il y a des items dans le panier
+        return true;
+      case 'address':
+        return cart.items.length > 0;
       case 'schedule':
         return !!cart.address && cart.items.length > 0;
       case 'contact':
@@ -130,25 +130,17 @@ export const ReservationModal = ({ isOpen, onClose }: ReservationModalProps) => 
   const handleNewReservation = () => {
     setShowSuccess(false);
     clearCart();
-    setCurrentStep('address');
+    setCurrentStep('services');
   };
 
   const handleClose = () => {
     onClose();
-    // Reset to appropriate step when closing
-    setCurrentStep(cart.items.length > 0 ? 'services' : 'address');
+    // Reset to services step when closing
+    setCurrentStep('services');
   };
 
   const renderCurrentStep = () => {
     switch (currentStep) {
-      case 'address':
-        return (
-          <CartAddressStep
-            address={cart.address}
-            onAddressSelect={updateAddress}
-            onNext={goToNextStep}
-          />
-        );
       case 'services':
         return (
           <CartServicesStep
@@ -156,6 +148,15 @@ export const ReservationModal = ({ isOpen, onClose }: ReservationModalProps) => 
             totalPrice={cart.totalPrice}
             onAddToCart={addToCart}
             onRemoveFromCart={removeFromCart}
+            onNext={goToNextStep}
+            onBack={goToPreviousStep}
+          />
+        );
+      case 'address':
+        return (
+          <CartAddressStep
+            address={cart.address}
+            onAddressSelect={updateAddress}
             onNext={goToNextStep}
             onBack={goToPreviousStep}
           />

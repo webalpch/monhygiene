@@ -37,12 +37,8 @@ export const CartWidget = () => {
     return details.length > 0 ? details.join(', ') : null;
   };
 
-  // Force showing the widget if there are items, even briefly
-  const shouldShowWidget = itemCount > 0;
-
-  if (!shouldShowWidget) {
-    return null;
-  }
+  // Toujours afficher le widget panier
+  const shouldShowWidget = true;
 
   return (
     <>
@@ -92,7 +88,17 @@ export const CartWidget = () => {
             
             <CardContent className="space-y-4 max-h-96 overflow-y-auto">
               {cart.items.length === 0 ? (
-                <p className="text-center text-gray-500 py-8">Votre panier est vide</p>
+                <div className="text-center py-8">
+                  <p className="text-gray-500 mb-4">Votre panier est vide</p>
+                  <Button 
+                    onClick={handleGoToReservation}
+                    variant="outline"
+                    className="w-full"
+                  >
+                    <ArrowRight className="mr-2 h-4 w-4" />
+                    Commencer une réservation
+                  </Button>
+                </div>
               ) : (
                 <>
                   {cart.items.map((item, index) => (
