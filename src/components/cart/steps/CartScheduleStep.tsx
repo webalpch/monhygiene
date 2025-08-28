@@ -122,7 +122,7 @@ export const CartScheduleStep: React.FC<CartScheduleStepProps> = ({
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0 max-w-sm sm:max-w-md" align="start">
-                  <div className="p-4">
+                  <div className="p-6 sm:p-8">
                     <Calendar
                       mode="single"
                       selected={selectedDate}
