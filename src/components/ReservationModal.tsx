@@ -213,18 +213,18 @@ export const ReservationModal = ({ isOpen, onClose }: ReservationModalProps) => 
               </div>
               
               {/* Progress Indicator */}
-              <div className="flex items-center justify-center space-x-1 sm:space-x-2 overflow-x-auto px-4">
+              <div className="flex items-center justify-center space-x-1 overflow-x-auto px-2">
                 {steps.map((step, index) => (
                   <div key={step} className="flex items-center flex-shrink-0">
-                    <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-sm sm:text-base font-bold transition-all duration-300 ${
+                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 ${
                       steps.indexOf(currentStep) >= index 
-                        ? 'bg-primary text-white shadow-lg transform scale-110' 
+                        ? 'bg-primary text-white shadow-md' 
                         : 'bg-gray-200 text-gray-500'
                     }`}>
                       {index + 1}
                     </div>
                     {index < steps.length - 1 && (
-                      <div className={`w-6 sm:w-12 h-1 mx-1 sm:mx-2 rounded-full transition-all duration-300 ${
+                      <div className={`w-4 h-0.5 mx-1 rounded-full transition-all duration-300 ${
                         steps.indexOf(currentStep) > index 
                           ? 'bg-primary' 
                           : 'bg-gray-200'
