@@ -42,8 +42,8 @@ const TrustSection = () => {
     }
   ];
 
-  // Dupliquer les partenaires pour un défilement continu
-  const duplicatedPartners = [...partners, ...partners, ...partners];
+  // Dupliquer les partenaires 5 fois pour un défilement parfaitement continu
+  const duplicatedPartners = Array(5).fill(partners).flat();
 
   return (
     <section className="section-padding bg-transparent border-t border-gray-200">
