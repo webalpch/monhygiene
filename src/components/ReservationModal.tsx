@@ -198,20 +198,33 @@ export const ReservationModal = ({ isOpen, onClose }: ReservationModalProps) => 
           onClick={(e) => e.stopPropagation()}
         >
           <div className="h-full flex flex-col min-h-[400px] max-h-[95vh]">
-            <div className="flex-shrink-0 p-3 sm:p-4 lg:p-6 border-b">
+            <div className="flex-shrink-0 p-4 sm:p-6 border-b bg-white/80 backdrop-blur-sm">
+              {/* Step Title */}
+              <div className="text-center mb-4">
+                <h2 className="text-lg sm:text-xl font-bold text-gray-900">
+                  {currentStep === 'services' && 'Sélection des services'}
+                  {currentStep === 'address' && 'Adresse d\'intervention'}
+                  {currentStep === 'schedule' && 'Planification'}
+                  {currentStep === 'contact' && 'Informations de contact'}
+                </h2>
+                <p className="text-sm text-gray-600 mt-1">
+                  Étape {steps.indexOf(currentStep) + 1} sur {steps.length}
+                </p>
+              </div>
+              
               {/* Progress Indicator */}
-              <div className="flex items-center justify-center space-x-2 sm:space-x-4 overflow-x-auto">
+              <div className="flex items-center justify-center space-x-1 sm:space-x-2 overflow-x-auto px-4">
                 {steps.map((step, index) => (
                   <div key={step} className="flex items-center flex-shrink-0">
-                    <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-medium ${
+                    <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-sm sm:text-base font-bold transition-all duration-300 ${
                       steps.indexOf(currentStep) >= index 
-                        ? 'bg-primary text-white' 
+                        ? 'bg-primary text-white shadow-lg transform scale-110' 
                         : 'bg-gray-200 text-gray-500'
                     }`}>
                       {index + 1}
                     </div>
                     {index < steps.length - 1 && (
-                      <div className={`w-4 sm:w-8 h-0.5 mx-1 sm:mx-2 ${
+                      <div className={`w-6 sm:w-12 h-1 mx-1 sm:mx-2 rounded-full transition-all duration-300 ${
                         steps.indexOf(currentStep) > index 
                           ? 'bg-primary' 
                           : 'bg-gray-200'
