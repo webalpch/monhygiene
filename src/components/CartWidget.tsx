@@ -111,7 +111,7 @@ export const CartWidget = () => {
                     className="w-full"
                   >
                     <ArrowRight className="mr-2 h-4 w-4" />
-                    Dites adieu à la saleté !
+                    Commencer une réservation
                   </Button>
                 </div>
               ) : (
@@ -154,7 +154,7 @@ export const CartWidget = () => {
                     className="w-full"
                     size="lg"
                   >
-                    Continuer vers la réservation
+                    Dites adieu à la saleté !
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </>
