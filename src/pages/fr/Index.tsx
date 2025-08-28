@@ -18,26 +18,26 @@ const TrustSection = () => {
   const partners = [
     {
       id: 1,
-      name: "État du Valais",
-      logo: "/lovable-uploads/5fa1fb9e-199c-42f2-86b5-b7c475090786.png",
+      name: "Canton du Valais",
+      logo: "/lovable-uploads/3d610b46-2569-4ee4-86db-669409edef7b.png",
       alt: "Logo Canton du Valais"
     },
     {
       id: 2,
       name: "Car Center – Ardon",
-      logo: "/lovable-uploads/83644970-ea1a-4641-aece-8e119c884d9e.png",
+      logo: "/lovable-uploads/98a1f02c-9749-4cbd-a8cf-96475fd1f9cb.png",
       alt: "Logo Car Center Ardon"
     },
     {
       id: 3,
       name: "Alexprod – Sierre",
-      logo: "/lovable-uploads/44c5fe03-0dcb-4052-a277-84d8bf3c940c.png",
+      logo: "/lovable-uploads/dfcbe5dd-3e03-4f13-8d6c-3f179e1165eb.png",
       alt: "Logo Alexprod Sierre"
     },
     {
       id: 4,
       name: "Hadid Hairstyle – Brig",
-      logo: "/lovable-uploads/bb7994a2-533e-4310-b09b-1de7b45ceb4a.png",
+      logo: "/lovable-uploads/fabc540b-197d-4c18-9d85-8e9b53f856f8.png",
       alt: "Logo Hadid Hairstyling"
     }
   ];
