@@ -288,24 +288,6 @@ export const CartScheduleStep: React.FC<CartScheduleStepProps> = ({
             </Card>
           )}
 
-          {/* Selected Slot Confirmation */}
-          {selectedSlot && (
-            <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200">
-              <CardContent className="p-6">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                    <CheckCircle className="w-7 h-7 text-green-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-green-900 text-lg">Créneau confirmé</h3>
-                    <p className="text-green-700 text-base">
-                      {formatSelectedDate(selectedSlot.date)} - {selectedSlot.period === 'morning' ? 'Matin (09h00-12h00)' : 'Après-midi (14h00-17h00)'}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
         </div>
 
         {/* Order Summary */}
