@@ -274,18 +274,6 @@ export const CartScheduleStep: React.FC<CartScheduleStepProps> = ({
                   </Button>
                 </div>
 
-                {/* Message d'information sur les créneaux */}
-                {selectedDate && (isSlotUnavailable('morning') || isSlotUnavailable('afternoon')) && (
-                  <div className="mt-6 p-4 bg-red-50 border-2 border-red-200 rounded-xl">
-                    <div className="flex items-center space-x-3">
-                      <AlertCircle className="h-6 w-6 text-red-600" />
-                      <div className="text-sm text-red-800">
-                        <p className="font-bold text-base mb-1">⚠️ Créneaux limités disponibles</p>
-                        <p>Certains créneaux sont déjà réservés pour le {formatSelectedDate(selectedDate).toLowerCase()}. Veuillez choisir un créneau disponible.</p>
-                      </div>
-                    </div>
-                  </div>
-                )}
 
                 {/* Information sur la mise à jour en temps réel */}
                 <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
