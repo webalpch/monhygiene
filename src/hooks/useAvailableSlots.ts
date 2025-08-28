@@ -30,10 +30,25 @@ export const useAvailableSlots = () => {
 
       // Créer un array des créneaux indisponibles au format "YYYY-MM-DD-period"
       const slots = data?.map(reservation => {
-        const period = reservation.scheduled_time === '09:00' ? 'morning' : 'afternoon';
+        // Logique plus robuste pour déterminer la période
+        const time = reservation.scheduled_time;
+        let period: 'morning' | 'afternoon';
+        
+        if (time === '09:00' || time === '09:00:00' || time === 'Matin (09h00 - 12h00)' || time === 'morning') {
+          period = 'morning';
+        } else if (time === '14:00' || time === '14:00:00' || time === 'Après-midi (14h00 - 17h00)' || time === 'afternoon') {
+          period = 'afternoon';
+        } else {
+          // Fallback: si l'heure est avant 12h, c'est le matin, sinon après-midi
+          const hour = parseInt(time?.split(':')[0] || '14');
+          period = hour < 12 ? 'morning' : 'afternoon';
+        }
+        
         return `${reservation.scheduled_date}-${period}`;
       }) || [];
 
+      console.log('🔍 Créneaux indisponibles trouvés:', slots);
+      console.log('🔍 Données de réservations brutes:', data);
       setUnavailableSlots(slots);
     } catch (error) {
       console.error('Erreur lors de la récupération des créneaux:', error);
@@ -46,7 +61,9 @@ export const useAvailableSlots = () => {
   const isSlotAvailable = (date: Date, period: 'morning' | 'afternoon') => {
     const dateStr = format(date, 'yyyy-MM-dd');
     const slotKey = `${dateStr}-${period}`;
-    return !unavailableSlots.includes(slotKey);
+    const available = !unavailableSlots.includes(slotKey);
+    console.log(`🔍 Vérification créneau ${slotKey}: ${available ? 'DISPONIBLE' : 'OCCUPÉ'}`);
+    return available;
   };
 
   // Générer les créneaux disponibles pour les 14 prochains jours
