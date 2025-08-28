@@ -671,14 +671,14 @@
 }
 
 .animate-scroll-right {
-  animation: scroll-continuous 20s linear infinite;
+  animation: scroll-continuous 12s linear infinite;
   will-change: transform;
 }
 
-/* Plus rapide sur mobile */
+/* Encore plus rapide sur mobile */
 @media (max-width: 768px) {
   .animate-scroll-right {
-    animation: scroll-continuous 12s linear infinite;
+    animation: scroll-continuous 8s linear infinite;
   }
 }
 
