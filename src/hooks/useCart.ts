@@ -307,6 +307,19 @@ export const useCart = () => {
     localStorage.removeItem('reservationCart');
   };
 
+  const refreshCart = () => {
+    const savedCart = localStorage.getItem('reservationCart');
+    if (savedCart) {
+      try {
+        const parsedCart = JSON.parse(savedCart);
+        console.log('Forcing cart refresh from localStorage:', parsedCart);
+        setCart(parsedCart);
+      } catch (error) {
+        console.error('Failed to refresh cart from localStorage:', error);
+      }
+    }
+  };
+
   return {
     cart,
     isLoading,
@@ -317,6 +330,7 @@ export const useCart = () => {
     updateContactInfo,
     createReservationFromCart,
     clearCart,
+    refreshCart,
     saveCartToDatabase
   };
 };

@@ -9,7 +9,8 @@ import { Badge } from '@/components/ui/badge';
 export const CartWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [forceRender, setForceRender] = useState(0);
-  const { cart, removeFromCart } = useCart();
+  const cartHook = useCart();
+  const { cart, removeFromCart } = cartHook;
   const navigate = useNavigate();
 
   const itemCount = cart.items.length;
@@ -29,16 +30,8 @@ export const CartWidget = () => {
 
   const handleOpenCart = () => {
     // Force refresh cart data from localStorage when opening
-    const savedCart = localStorage.getItem('reservationCart');
-    if (savedCart) {
-      try {
-        const parsedCart = JSON.parse(savedCart);
-        console.log('Refreshing cart data from localStorage:', parsedCart);
-        setForceRender(prev => prev + 1); // Force re-render
-      } catch (error) {
-        console.error('Failed to refresh cart:', error);
-      }
-    }
+    cartHook.refreshCart();
+    setForceRender(prev => prev + 1);
     setIsOpen(true);
   };
 
