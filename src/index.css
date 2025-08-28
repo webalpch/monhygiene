@@ -660,7 +660,7 @@
   }
 }
 
-/* Trust section scrolling animation */
+/* Trust section scrolling animation - Plus fluide */
 @keyframes scroll-right-to-left {
   0% {
     transform: translateX(0);
@@ -671,11 +671,22 @@
 }
 
 .animate-scroll-right {
-  animation: scroll-right-to-left 20s linear infinite;
+  animation: scroll-right-to-left 25s linear infinite;
+  will-change: transform;
 }
 
+/* Plus rapide sur mobile pour éviter les saccades */
 @media (max-width: 768px) {
   .animate-scroll-right {
-    animation: scroll-right-to-left 8s linear infinite;
+    animation: scroll-right-to-left 12s linear infinite;
+  }
+}
+
+/* Amélioration pour les appareils haute fréquence */
+@media (prefers-reduced-motion: no-preference) {
+  .animate-scroll-right {
+    animation-timing-function: linear;
+    backface-visibility: hidden;
+    perspective: 1000px;
   }
 }

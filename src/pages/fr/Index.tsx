@@ -54,16 +54,16 @@ const TrustSection = () => {
       </div>
       
       <div className="relative overflow-hidden">
-        <div className="flex animate-scroll-right space-x-16">
+        <div className="flex animate-scroll-right gap-8 sm:gap-12 lg:gap-16">
           {duplicatedPartners.map((partner, index) => (
-            <div key={`${partner.id}-${index}`} className="flex flex-col items-center min-w-[200px]">
+            <div key={`${partner.id}-${index}`} className="flex flex-col items-center min-w-[140px] sm:min-w-[180px] lg:min-w-[200px] flex-shrink-0">
               <img
                 src={partner.logo}
                 alt={partner.alt}
-                className="object-contain w-24 h-24 lg:w-28 lg:h-28 mb-3"
+                className="object-contain w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 mb-2 lg:mb-3 transform-gpu"
                 draggable={false}
               />
-              <span className="text-sm text-gray-700 font-semibold text-center whitespace-nowrap">
+              <span className="text-xs sm:text-sm text-gray-700 font-semibold text-center whitespace-nowrap px-2">
                 {partner.name}
               </span>
             </div>
