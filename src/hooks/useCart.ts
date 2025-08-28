@@ -298,13 +298,18 @@ export const useCart = () => {
   };
 
   const clearCart = () => {
+    // Réinitialiser complètement le panier avec toutes les informations
     setCart({
       id: '',
       sessionId: generateSessionId(),
       items: [],
-      totalPrice: 0
+      totalPrice: 0,
+      address: undefined,
+      contactInfo: undefined
     });
+    // Supprimer toutes les données du localStorage
     localStorage.removeItem('reservationCart');
+    console.log('🗑️ Panier complètement vidé - toutes les informations supprimées');
   };
 
   const refreshCart = () => {
