@@ -27,6 +27,21 @@ export const CartWidget = () => {
     navigate('/fr/reservation');
   };
 
+  const handleOpenCart = () => {
+    // Force refresh cart data from localStorage when opening
+    const savedCart = localStorage.getItem('reservationCart');
+    if (savedCart) {
+      try {
+        const parsedCart = JSON.parse(savedCart);
+        console.log('Refreshing cart data from localStorage:', parsedCart);
+        setForceRender(prev => prev + 1); // Force re-render
+      } catch (error) {
+        console.error('Failed to refresh cart:', error);
+      }
+    }
+    setIsOpen(true);
+  };
+
   const formatCartDetails = (cartDetails: Record<string, any>) => {
     if (!cartDetails || Object.keys(cartDetails).length === 0) {
       return null;
@@ -51,7 +66,7 @@ export const CartWidget = () => {
       {/* Widget panier fixe */}
       <div className="fixed bottom-6 left-6 z-50">
         <Button
-          onClick={() => setIsOpen(true)}
+          onClick={handleOpenCart}
           className="relative h-14 w-14 rounded-full bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-200"
           size="icon"
           key={forceRender} // Force re-render when this changes
@@ -93,7 +108,7 @@ export const CartWidget = () => {
               </Button>
             </CardHeader>
             
-            <CardContent className="space-y-4 max-h-96 overflow-y-auto">
+            <CardContent className="space-y-4 max-h-96 overflow-y-auto" key={`cart-content-${forceRender}`}>
               {cart.items.length === 0 ? (
                 <div className="text-center py-8">
                   <p className="text-gray-500 mb-4">Votre panier est vide</p>
@@ -109,7 +124,7 @@ export const CartWidget = () => {
               ) : (
                 <>
                   {cart.items.map((item, index) => (
-                    <div key={index} className="flex justify-between items-start p-3 bg-gray-50 rounded-lg">
+                    <div key={`${item.id}-${forceRender}`} className="flex justify-between items-start p-3 bg-gray-50 rounded-lg">{/* ... rest of item content */}
                       <div className="flex-1">
                         <h4 className="font-medium text-sm">{item.service.name}</h4>
                         {formatCartDetails(item.formData) && (
