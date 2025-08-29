@@ -111,7 +111,7 @@ export const CartWidget = () => {
                     className="w-full"
                   >
                     <ArrowRight className="mr-2 h-4 w-4" />
-                    Commencer une réservation
+                    Dites adieu à la saleté !
                   </Button>
                 </div>
               ) : (
