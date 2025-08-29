@@ -27,7 +27,7 @@ const translations = {
     
     // Services
     'services.title': 'Nos Services',
-    'services.subtitle': 'Des solutions de nettoyage professionnelles adaptées à tous vos besoins',
+    'services.subtitle': 'Des solutions de nettoyage adaptées à tous vos besoins',
     'services.cta': 'Voir tous nos services',
     'services.book': 'Réserver',
     'services.from': 'À partir de',
