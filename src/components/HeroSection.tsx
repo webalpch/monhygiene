@@ -31,7 +31,7 @@ const HeroSection = ({ onReservationClick }: HeroSectionProps) => {
       {/* Contenu centré */}
       <div className={`relative z-10 text-center text-white px-4 transition-all duration-2000 ease-out ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'}`}>
         <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-          Dites <span className="text-primary">adieu</span> à la saleté
+          Dites <span className="text-primary">Adieu</span> à la Saleté
         </h1>
         <p className="text-lg md:text-xl lg:text-2xl mb-8 max-w-3xl mx-auto text-white/90">
           Voiture, Canapé, Matelas, Terrasse, Tapis, et bien plus...
