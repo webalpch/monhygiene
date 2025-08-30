@@ -81,36 +81,40 @@ export const CartScheduleStep: React.FC<CartScheduleStepProps> = ({
   };
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-3">Planifiez votre intervention</h2>
-        <p className="text-lg text-gray-600">Choisissez une date et un créneau horaire qui vous convient</p>
+    <div className="h-full flex flex-col bg-gray-50">
+      {/* Header - fixed at top */}
+      <div className="px-4 py-4 bg-white border-b border-gray-100 flex-shrink-0">
+        <h2 className="text-lg font-bold text-gray-900 text-center mb-1">
+          Planifiez votre intervention
+        </h2>
+        <p className="text-sm text-gray-600 text-center">
+          Choisissez une date et un créneau horaire qui vous convient
+        </p>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-        {/* Schedule Selection */}
-        <div className="lg:col-span-2 space-y-4 sm:space-y-6 min-w-0">
-          {/* Date Selection */}
-          <Card className="border-2 border-primary/20 w-full max-w-full overflow-hidden">
-            <CardHeader className="pb-4">
-              <CardTitle className="flex items-center space-x-3 text-xl">
-                <CalendarIcon className="w-6 h-6 text-primary" />
-                <span>Choisir une date</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className={cn(
-                      "w-full justify-start text-left font-normal h-14 text-lg border-2",
-                      !selectedDate && "text-muted-foreground",
-                      selectedDate && "border-primary/50 bg-primary/5"
-                    )}
-                  >
-                    <CalendarIcon className="mr-3 h-5 w-5" />
+      {/* Content area - scrollable */}
+      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
+        {/* Date Selection */}
+        <Card className="border border-gray-200 shadow-sm">
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center space-x-2 text-base">
+              <CalendarIcon className="w-5 h-5 text-primary" />
+              <span>Choisir une date</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="pt-0">
+            <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  className={cn(
+                    "w-full justify-between text-left font-normal h-12 text-base border-2",
+                    !selectedDate && "text-muted-foreground",
+                    selectedDate && "border-blue-500 bg-blue-50 text-blue-700"
+                  )}
+                >
+                  <div className="flex items-center">
+                    <CalendarIcon className="mr-2 h-4 w-4" />
                     {selectedDate ? (
                       <span className="capitalize font-medium">
                         {formatSelectedDate(selectedDate)}
@@ -118,266 +122,243 @@ export const CartScheduleStep: React.FC<CartScheduleStepProps> = ({
                     ) : (
                       <span>Sélectionner une date</span>
                     )}
-                    <ChevronDown className="ml-auto h-4 w-4" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0 sm:w-[350px] md:w-auto" align="start" side="bottom">
-                  <div className="p-2 sm:p-4">
-                    <Calendar
-                      mode="single"
-                      selected={selectedDate}
-                      onSelect={handleDateSelect}
-                      disabled={isDateDisabled}
-                      initialFocus
-                      className={cn("p-1 sm:p-3 pointer-events-auto w-full")}
-                      locale={fr}
-                      fromDate={addDays(new Date(), 1)}
-                      toDate={addDays(new Date(), 30)}
-                      classNames={{
-                        months: "flex flex-col space-y-2",
-                        month: "space-y-2",
-                        caption: "flex justify-center pt-1 relative items-center text-sm sm:text-base font-semibold",
-                        caption_label: "text-sm sm:text-base font-bold",
-                        nav: "space-x-1 flex items-center",
-                        nav_button: "h-8 w-8 sm:h-9 sm:w-9 bg-transparent p-0 opacity-50 hover:opacity-100 border border-gray-300 rounded-md hover:bg-gray-100",
-                        nav_button_previous: "absolute left-1",
-                        nav_button_next: "absolute right-1",
-                        table: "w-full border-collapse space-y-1",
-                        head_row: "flex",
-                        head_cell: "text-gray-500 rounded-md w-9 h-9 sm:w-10 sm:h-10 font-normal text-sm sm:text-base flex items-center justify-center",
-                        row: "flex w-full mt-1",
-                        cell: "h-9 w-9 sm:h-10 sm:w-10 text-center text-sm sm:text-base p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
-                        day: "h-9 w-9 sm:h-10 sm:w-10 p-0 font-normal aria-selected:opacity-100 text-sm sm:text-base rounded-md hover:bg-gray-100 focus:bg-gray-100",
-                        day_range_end: "day-range-end",
-                        day_selected: "bg-primary text-white hover:bg-primary hover:text-white focus:bg-primary focus:text-white font-bold",
-                        day_today: "bg-accent text-accent-foreground font-semibold",
-                        day_outside: "day-outside text-gray-400 opacity-50 aria-selected:bg-accent/50 aria-selected:text-gray-400 aria-selected:opacity-30",
-                        day_disabled: "text-gray-400 opacity-50 cursor-not-allowed",
-                        day_hidden: "invisible",
-                      }}
-                    />
                   </div>
-                </PopoverContent>
-              </Popover>
+                  <ChevronDown className="h-4 w-4" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-full p-2" align="start" side="bottom">
+                <Calendar
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={handleDateSelect}
+                  disabled={isDateDisabled}
+                  initialFocus
+                  className="p-0 w-full"
+                  locale={fr}
+                  fromDate={addDays(new Date(), 1)}
+                  toDate={addDays(new Date(), 30)}
+                  classNames={{
+                    months: "flex flex-col space-y-2",
+                    month: "space-y-2",
+                    caption: "flex justify-center pt-1 relative items-center text-sm font-semibold",
+                    nav: "space-x-1 flex items-center",
+                    nav_button: "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 border border-gray-300 rounded-md hover:bg-gray-100",
+                    nav_button_previous: "absolute left-1",
+                    nav_button_next: "absolute right-1",
+                    table: "w-full border-collapse space-y-1",
+                    head_row: "flex",
+                    head_cell: "text-gray-500 rounded-md w-9 h-9 font-normal text-xs flex items-center justify-center",
+                    row: "flex w-full mt-1",
+                    cell: "h-9 w-9 text-center text-sm p-0 relative",
+                    day: "h-9 w-9 p-0 font-normal aria-selected:opacity-100 text-sm rounded-md hover:bg-gray-100 focus:bg-gray-100",
+                    day_selected: "bg-primary text-white hover:bg-primary hover:text-white focus:bg-primary focus:text-white font-bold",
+                    day_today: "bg-accent text-accent-foreground font-semibold",
+                    day_disabled: "text-gray-400 opacity-50 cursor-not-allowed",
+                  }}
+                />
+              </PopoverContent>
+            </Popover>
+          </CardContent>
+        </Card>
+
+        {/* Time Slots Selection */}
+        {selectedDate && (
+          <Card className="border border-gray-200 shadow-sm">
+            <CardHeader className="pb-3">
+              <CardTitle className="flex items-center space-x-2 text-base">
+                <Clock className="w-5 h-5 text-primary" />
+                <span>Créneaux disponibles</span>
+              </CardTitle>
+              <p className="text-sm text-gray-600 mt-1">
+                Pour le {formatSelectedDate(selectedDate).toLowerCase()}
+              </p>
+            </CardHeader>
+            <CardContent className="pt-0">
+              {slotsLoading && (
+                <div className="text-center py-4">
+                  <div className="w-6 h-6 border-2 border-primary/30 border-t-primary rounded-full animate-spin mx-auto mb-2"></div>
+                  <p className="text-sm text-gray-600">Vérification des créneaux...</p>
+                </div>
+              )}
+              
+              <div className="space-y-3">
+                {/* Morning Slot */}
+                <Button
+                  variant={isSlotSelected('morning') ? 'default' : 'outline'}
+                  onClick={() => handleTimeSlotSelect('morning')}
+                  disabled={isSlotUnavailable('morning')}
+                  className={cn(
+                    "w-full h-16 p-3 border-2 transition-all duration-200 justify-start",
+                    isSlotSelected('morning') 
+                      ? "bg-blue-600 text-white border-blue-600" 
+                      : isSlotUnavailable('morning')
+                        ? "border-red-200 bg-red-50 text-red-400 cursor-not-allowed opacity-60"
+                        : "border-gray-200 hover:border-blue-500 hover:bg-blue-50"
+                  )}
+                >
+                  <div className="flex items-center space-x-3 w-full">
+                    <div className="flex-shrink-0">
+                      <div className={cn(
+                        "w-10 h-10 rounded-full flex items-center justify-center",
+                        isSlotSelected('morning') 
+                          ? "bg-white/20" 
+                          : isSlotUnavailable('morning')
+                            ? "bg-red-100"
+                            : "bg-blue-100"
+                      )}>
+                        {isSlotUnavailable('morning') ? (
+                          <AlertCircle className="w-5 h-5 text-red-500" />
+                        ) : (
+                          <Clock className={cn(
+                            "w-5 h-5",
+                            isSlotSelected('morning') ? "text-white" : "text-blue-600"
+                          )} />
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex-1 text-left">
+                      <div className="font-semibold text-base">
+                        Matin
+                      </div>
+                      <div className={cn(
+                        "text-sm",
+                        isSlotSelected('morning') 
+                          ? "text-white/80" 
+                          : isSlotUnavailable('morning')
+                            ? "text-red-400"
+                            : "text-gray-600"
+                      )}>
+                        09h00 - 12h00
+                      </div>
+                    </div>
+                    {isSlotSelected('morning') && (
+                      <CheckCircle className="w-5 h-5 text-white" />
+                    )}
+                  </div>
+                </Button>
+
+                {/* Afternoon Slot */}
+                <Button
+                  variant={isSlotSelected('afternoon') ? 'default' : 'outline'}
+                  onClick={() => handleTimeSlotSelect('afternoon')}
+                  disabled={isSlotUnavailable('afternoon')}
+                  className={cn(
+                    "w-full h-16 p-3 border-2 transition-all duration-200 justify-start",
+                    isSlotSelected('afternoon') 
+                      ? "bg-blue-600 text-white border-blue-600" 
+                      : isSlotUnavailable('afternoon')
+                        ? "border-red-200 bg-red-50 text-red-400 cursor-not-allowed opacity-60"
+                        : "border-gray-200 hover:border-blue-500 hover:bg-blue-50"
+                  )}
+                >
+                  <div className="flex items-center space-x-3 w-full">
+                    <div className="flex-shrink-0">
+                      <div className={cn(
+                        "w-10 h-10 rounded-full flex items-center justify-center",
+                        isSlotSelected('afternoon') 
+                          ? "bg-white/20" 
+                          : isSlotUnavailable('afternoon')
+                            ? "bg-red-100"
+                            : "bg-blue-100"
+                      )}>
+                        {isSlotUnavailable('afternoon') ? (
+                          <AlertCircle className="w-5 h-5 text-red-500" />
+                        ) : (
+                          <Clock className={cn(
+                            "w-5 h-5",
+                            isSlotSelected('afternoon') ? "text-white" : "text-blue-600"
+                          )} />
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex-1 text-left">
+                      <div className="font-semibold text-base">
+                        Après-midi
+                      </div>
+                      <div className={cn(
+                        "text-sm",
+                        isSlotSelected('afternoon') 
+                          ? "text-white/80" 
+                          : isSlotUnavailable('afternoon')
+                            ? "text-red-400"
+                            : "text-gray-600"
+                      )}>
+                        14h00 - 17h00
+                      </div>
+                    </div>
+                    {isSlotSelected('afternoon') && (
+                      <CheckCircle className="w-5 h-5 text-white" />
+                    )}
+                  </div>
+                </Button>
+              </div>
             </CardContent>
           </Card>
-
-          {/* Time Slots Selection */}
-          {selectedDate && (
-            <Card className="border-2 border-primary/20">
-              <CardHeader className="pb-4">
-                <CardTitle className="flex items-center space-x-3 text-xl">
-                  <Clock className="w-6 h-6 text-primary" />
-                  <span>Créneaux disponibles</span>
-                </CardTitle>
-                <p className="text-gray-600 mt-2">
-                  Pour le {formatSelectedDate(selectedDate).toLowerCase()}
-                </p>
-              </CardHeader>
-              <CardContent>
-                {slotsLoading && (
-                  <div className="text-center py-4">
-                    <div className="w-6 h-6 border-2 border-primary/30 border-t-primary rounded-full animate-spin mx-auto mb-2"></div>
-                    <p className="text-sm text-gray-600">Vérification des créneaux...</p>
-                  </div>
-                )}
-                
-                <div className="grid sm:grid-cols-2 gap-4">
-                  {/* Morning Slot */}
-                  <Button
-                    variant={isSlotSelected('morning') ? 'default' : 'outline'}
-                    size="lg"
-                    onClick={() => handleTimeSlotSelect('morning')}
-                    disabled={isSlotUnavailable('morning')}
-                    className={cn(
-                      "h-20 p-4 border-2 transition-all duration-200 relative",
-                      isSlotSelected('morning') 
-                        ? "bg-primary text-white border-primary shadow-lg scale-105" 
-                        : isSlotUnavailable('morning')
-                          ? "border-red-200 bg-red-50 text-red-400 cursor-not-allowed opacity-60"
-                          : "border-gray-200 hover:border-primary/50 hover:bg-primary/5"
-                    )}
-                  >
-                    <div className="flex items-center space-x-3 w-full">
-                      <div className="flex-shrink-0">
-                        <div className={cn(
-                          "w-12 h-12 rounded-full flex items-center justify-center",
-                          isSlotSelected('morning') 
-                            ? "bg-white/20" 
-                            : isSlotUnavailable('morning')
-                              ? "bg-red-100"
-                              : "bg-primary/10"
-                        )}>
-                          {isSlotUnavailable('morning') ? (
-                            <AlertCircle className="w-6 h-6 text-red-500" />
-                          ) : (
-                            <Clock className={cn(
-                              "w-6 h-6",
-                              isSlotSelected('morning') ? "text-white" : "text-primary"
-                            )} />
-                          )}
-                        </div>
-                      </div>
-                      <div className="flex-1 text-left">
-                        <div className="font-semibold text-lg">
-                          Matin {isSlotUnavailable('morning') && "(Occupé)"}
-                        </div>
-                        <div className={cn(
-                          "text-sm",
-                          isSlotSelected('morning') 
-                            ? "text-white/80" 
-                            : isSlotUnavailable('morning')
-                              ? "text-red-400"
-                              : "text-gray-600"
-                        )}>
-                          09h00 - 12h00
-                        </div>
-                      </div>
-                      {isSlotSelected('morning') && (
-                        <CheckCircle className="w-6 h-6 text-white" />
-                      )}
-                    </div>
-                  </Button>
-
-                  {/* Afternoon Slot */}
-                  <Button
-                    variant={isSlotSelected('afternoon') ? 'default' : 'outline'}
-                    size="lg"
-                    onClick={() => handleTimeSlotSelect('afternoon')}
-                    disabled={isSlotUnavailable('afternoon')}
-                    className={cn(
-                      "h-20 p-4 border-2 transition-all duration-200 relative",
-                      isSlotSelected('afternoon') 
-                        ? "bg-primary text-white border-primary shadow-lg scale-105" 
-                        : isSlotUnavailable('afternoon')
-                          ? "border-red-200 bg-red-50 text-red-400 cursor-not-allowed opacity-60"
-                          : "border-gray-200 hover:border-primary/50 hover:bg-primary/5"
-                    )}
-                  >
-                    <div className="flex items-center space-x-3 w-full">
-                      <div className="flex-shrink-0">
-                        <div className={cn(
-                          "w-12 h-12 rounded-full flex items-center justify-center",
-                          isSlotSelected('afternoon') 
-                            ? "bg-white/20" 
-                            : isSlotUnavailable('afternoon')
-                              ? "bg-red-100"
-                              : "bg-primary/10"
-                        )}>
-                          {isSlotUnavailable('afternoon') ? (
-                            <AlertCircle className="w-6 h-6 text-red-500" />
-                          ) : (
-                            <Clock className={cn(
-                              "w-6 h-6",
-                              isSlotSelected('afternoon') ? "text-white" : "text-primary"
-                            )} />
-                          )}
-                        </div>
-                      </div>
-                      <div className="flex-1 text-left">
-                        <div className="font-semibold text-lg">
-                          Après-midi {isSlotUnavailable('afternoon') && "(Occupé)"}
-                        </div>
-                        <div className={cn(
-                          "text-sm",
-                          isSlotSelected('afternoon') 
-                            ? "text-white/80" 
-                            : isSlotUnavailable('afternoon')
-                              ? "text-red-400"
-                              : "text-gray-600"
-                        )}>
-                          14h00 - 17h00
-                        </div>
-                      </div>
-                      {isSlotSelected('afternoon') && (
-                        <CheckCircle className="w-6 h-6 text-white" />
-                      )}
-                    </div>
-                  </Button>
-                </div>
-
-
-                {/* Information sur la mise à jour en temps réel */}
-                <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                  <div className="flex items-center space-x-2">
-                    <div className={`w-2 h-2 rounded-full ${slotsLoading ? 'bg-yellow-500 animate-pulse' : 'bg-green-500'}`}></div>
-                    <p className="text-xs text-blue-800">
-                      {slotsLoading ? 'Vérification des disponibilités...' : 'Créneaux mis à jour en temps réel'}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
-        </div>
+        )}
 
         {/* Order Summary */}
-        <div className="lg:col-span-1">
-          <Card className="sticky top-4 border-2 border-primary/20">
-            <CardHeader className="bg-gradient-to-r from-primary/5 to-primary/10">
-              <CardTitle className="flex items-center justify-between text-xl">
-                <span>Récapitulatif</span>
-                <Badge variant="secondary" className="text-lg px-3 py-1 bg-primary text-white">
-                  {totalPrice} CHF
-                </Badge>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6 p-6">
-              {/* Services List */}
-              <div className="space-y-3">
-                <h4 className="font-semibold text-gray-900 border-b pb-2">Services sélectionnés</h4>
-                {cartItems.map((item) => (
-                  <div key={item.id} className="flex justify-between items-start text-sm bg-gray-50 rounded-lg p-3">
-                    <span className="font-medium text-gray-800">{item.service.name}</span>
-                    <span className="font-bold text-primary ml-2">{item.estimatedPrice} CHF</span>
-                  </div>
-                ))}
+        <Card className="border border-gray-200 shadow-sm">
+          <CardHeader className="pb-3 bg-gray-50">
+            <CardTitle className="flex items-center justify-between text-base">
+              <span>Récapitulatif</span>
+              <Badge variant="secondary" className="text-sm px-2 py-1 bg-primary text-white">
+                {totalPrice} CHF
+              </Badge>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="pt-3 space-y-3">
+            {/* Services List */}
+            <div className="space-y-2">
+              <h4 className="text-sm font-semibold text-gray-900">Services sélectionnés</h4>
+              {cartItems.map((item) => (
+                <div key={item.id} className="flex justify-between items-center text-sm bg-gray-50 rounded-lg p-2">
+                  <span className="font-medium text-gray-800 text-xs">{item.service.name}</span>
+                  <span className="font-bold text-primary text-xs">{item.estimatedPrice} CHF</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="border-t border-gray-200 pt-3">
+              <div className="flex justify-between items-center text-base font-bold">
+                <span>Total</span>
+                <span className="text-primary">{totalPrice} CHF</span>
               </div>
+            </div>
 
-              <div className="border-t-2 border-gray-200 pt-4">
-                <div className="flex justify-between items-center text-xl font-bold">
-                  <span>Total</span>
-                  <span className="text-primary">{totalPrice} CHF</span>
+            {selectedSlot && (
+              <div className="bg-green-50 rounded-lg p-3 border border-green-200">
+                <div className="text-sm text-green-800">
+                  <div className="font-semibold">Date d'intervention :</div>
+                  <div className="text-xs">{formatSelectedDate(selectedSlot.date)}</div>
+                  <div className="font-semibold mt-1">Horaire :</div>
+                  <div className="text-xs">{selectedSlot.period === 'morning' ? '09h00 - 12h00' : '14h00 - 17h00'}</div>
                 </div>
               </div>
-
-              {selectedSlot && (
-                <div className="space-y-3">
-                  <div className="bg-green-50 rounded-lg p-4 border border-green-200">
-                    <div className="text-sm text-green-800">
-                      <div className="font-semibold">Date d'intervention :</div>
-                      <div>{formatSelectedDate(selectedSlot.date)}</div>
-                      <div className="font-semibold mt-1">Horaire :</div>
-                      <div>{selectedSlot.period === 'morning' ? '09h00 - 12h00' : '14h00 - 17h00'}</div>
-                    </div>
-                  </div>
-                  
-                  <Button onClick={onNext} className="w-full h-12 text-lg font-semibold" size="lg">
-                    Finaliser la commande
-                  </Button>
-                </div>
-              )}
-
-              {!selectedSlot && (
-                <div className="text-center text-gray-500 text-sm py-4">
-                  Sélectionnez une date et un créneau pour continuer
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </div>
+            )}
+          </CardContent>
+        </Card>
       </div>
 
-      {/* Navigation */}
-      <div className="flex justify-between pt-8 border-t-2 border-gray-200">
-        <Button
-          variant="outline"
-          onClick={onBack}
-          className="px-8 py-3 text-lg border-2"
-        >
-          ← Retour aux services
-        </Button>
+      {/* Navigation - fixed at bottom */}
+      <div className="px-4 py-4 bg-white border-t border-gray-100 flex-shrink-0">
+        <div className="flex justify-between gap-3">
+          <Button
+            variant="outline"
+            onClick={onBack}
+            className="flex-1 h-12 text-sm border-2"
+          >
+            ← Retour
+          </Button>
+          
+          {selectedSlot && (
+            <Button 
+              onClick={onNext} 
+              className="flex-1 h-12 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium"
+            >
+              Continuer
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );
