@@ -34,7 +34,7 @@ const AboutSection = () => {
         <div className="max-w-4xl mx-auto text-center">
           <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <h2 className="text-xl lg:text-5xl font-bold text-foreground mb-12 tracking-tight whitespace-nowrap lg:whitespace-normal">
-            {t('about.how_born')}
+            Comment <span className="text-primary">MonHygiène</span> est né ?
           </h2>
             <p className="text-lg text-muted-foreground leading-relaxed mb-12">
               {content.description}
