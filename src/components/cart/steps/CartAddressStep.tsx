@@ -206,35 +206,35 @@ export const CartAddressStep: React.FC<CartAddressStepProps> = ({
       onNext();
     }
   };
-  return <div className="space-y-6">
-      <div className="text-center mb-6">
-        <h2 className="text-lg md:text-2xl font-bold text-gray-900 mb-2 whitespace-nowrap">Où souhaitez-vous nos services ?</h2>
-        <p className="text-gray-600">Recherchez votre adresse en Suisse</p>
+  return <div className="space-y-4 sm:space-y-6 px-2 sm:px-0">
+      <div className="text-center mb-4 sm:mb-6">
+        <h2 className="text-xl sm:text-lg md:text-2xl font-bold text-gray-900 mb-2 px-2">Où souhaitez-vous nos services ?</h2>
+        <p className="text-sm sm:text-base text-gray-600 px-2">Recherchez votre adresse en Suisse</p>
       </div>
 
       {/* Map with overlay search */}
       <div className="relative w-full max-w-5xl mx-auto">
-        <Map address={address} height="300px" />
+        <Map address={address} height="250px" className="sm:h-[300px]" />
         
         {/* Search overlay */}
-        <div className="absolute top-4 left-4 right-4 z-20">
-          <form onSubmit={handleSearchSubmit} className="max-w-md relative">
+        <div className="absolute top-2 sm:top-4 left-2 sm:left-4 right-2 sm:right-4 z-20">
+          <form onSubmit={handleSearchSubmit} className="w-full sm:max-w-md relative">
             <div className="flex space-x-2">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 z-10" />
                 {isLoading && <Loader2 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-primary w-4 h-4 animate-spin z-10" />}
-                <Input value={searchValue} onChange={e => handleSearchChange(e.target.value)} placeholder="Recherchez une adresse en Suisse..." className="pl-10 pr-10 bg-white/95 backdrop-blur-sm border-gray-300 shadow-lg" onFocus={() => {
+                <Input value={searchValue} onChange={e => handleSearchChange(e.target.value)} placeholder="Recherchez une adresse..." className="pl-10 pr-10 bg-white/95 backdrop-blur-sm border-gray-300 shadow-lg text-sm sm:text-base h-10 sm:h-12" onFocus={() => {
                 if (suggestions.length > 0) {
                   setShowSuggestions(true);
                 }
               }} />
                 
                 {/* Suggestions dropdown */}
-                {showSuggestions && suggestions.length > 0 && <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-xl z-30 max-h-60 overflow-y-auto">
-                    {suggestions.map(suggestion => <div key={suggestion.id} onClick={() => handleSuggestionSelect(suggestion)} className="px-4 py-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0 flex items-start space-x-3">
+                {showSuggestions && suggestions.length > 0 && <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-xl z-30 max-h-48 sm:max-h-60 overflow-y-auto">
+                    {suggestions.map(suggestion => <div key={suggestion.id} onClick={() => handleSuggestionSelect(suggestion)} className="px-3 sm:px-4 py-2 sm:py-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0 flex items-start space-x-2 sm:space-x-3">
                         <MapPin className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900 truncate">
+                          <p className="text-xs sm:text-sm font-medium text-gray-900 truncate">
                             {suggestion.place_name}
                           </p>
                           {suggestion.context && <p className="text-xs text-gray-500 truncate">
@@ -244,8 +244,8 @@ export const CartAddressStep: React.FC<CartAddressStepProps> = ({
                       </div>)}
                   </div>}
               </div>
-              <Button type="submit" className="bg-primary hover:bg-primary/90 shadow-lg">
-                Valider
+              <Button type="submit" className="bg-primary hover:bg-primary/90 shadow-lg px-3 sm:px-4 text-sm sm:text-base h-10 sm:h-12">
+                OK
               </Button>
             </div>
           </form>
@@ -256,18 +256,18 @@ export const CartAddressStep: React.FC<CartAddressStepProps> = ({
       </div>
 
       {/* Selected Address Display */}
-      {address && <div className="max-w-2xl mx-auto">
-          <Card className="bg-green-50 border-green-200 ring-2 ring-green-400 ring-opacity-50 shadow-lg animate-pulse">
-            <CardContent className="p-4 bg-gradient-to-r from-green-50 to-green-100">
-              <div className="flex items-center justify-between">
-                <div className="flex items-start space-x-3">
-                  <MapPin className="w-5 h-5 text-green-600 mt-0.5" />
-                  <div className="flex-1">
-                    <h3 className="font-medium text-green-900">Adresse sélectionnée</h3>
-                    <p className="text-green-700 text-sm mt-1">{address.place_name}</p>
+      {address && <div className="max-w-2xl mx-auto px-2 sm:px-0">
+          <Card className="bg-green-50 border-green-200 ring-2 ring-green-400 ring-opacity-50 shadow-lg">
+            <CardContent className="p-3 sm:p-4 bg-gradient-to-r from-green-50 to-green-100">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+                <div className="flex items-start space-x-3 flex-1">
+                  <MapPin className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-medium text-green-900 text-sm sm:text-base">Adresse sélectionnée</h3>
+                    <p className="text-green-700 text-sm mt-1 break-words">{address.place_name}</p>
                   </div>
                 </div>
-                <Button onClick={onNext} size="lg" className="min-w-32">
+                <Button onClick={onNext} size="sm" className="w-full sm:w-auto sm:min-w-32 text-sm sm:text-base">
                   Continuer
                 </Button>
               </div>

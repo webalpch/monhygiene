@@ -119,26 +119,26 @@ export const ScheduleStep = ({ selectedSlot, onSlotSelect, onNext, onBack }: Sch
   };
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-6xl mx-auto px-2 sm:px-0">
       {/* Header moderne réduit pour mobile */}
-      <div className="text-center mb-6 sm:mb-12">
-        <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-primary/10 rounded-full mb-4 sm:mb-6">
+      <div className="text-center mb-4 sm:mb-8 lg:mb-12">
+        <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-primary/10 rounded-full mb-3 sm:mb-6">
           <CalendarDays className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
         </div>
-        <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-2 sm:mb-4">
+        <h1 className="text-xl sm:text-2xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-4 px-2">
           Quand souhaitez-vous notre intervention ?
         </h1>
-        <p className="text-base sm:text-xl text-gray-600">
+        <p className="text-sm sm:text-base lg:text-xl text-gray-600 px-2">
           Choisissez la date et l'horaire qui vous conviennent le mieux
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-4 sm:gap-8 mb-4 sm:mb-6">
+      <div className="grid lg:grid-cols-2 gap-3 sm:gap-6 lg:gap-8 mb-4 sm:mb-6">
         {/* Calendar moderne adapté mobile */}
-        <div className="bg-white rounded-2xl p-4 sm:p-8 shadow-lg border border-gray-100">
-          <div className="flex items-center mb-4 sm:mb-6">
-            <CalendarDays className="w-5 h-5 sm:w-6 sm:h-6 text-primary mr-3" />
-            <h3 className="text-lg sm:text-2xl font-semibold text-gray-900">Sélectionnez une date</h3>
+        <div className="bg-white rounded-2xl p-3 sm:p-6 lg:p-8 shadow-lg border border-gray-100">
+          <div className="flex items-center mb-3 sm:mb-6">
+            <CalendarDays className="w-5 h-5 sm:w-6 sm:h-6 text-primary mr-2 sm:mr-3" />
+            <h3 className="text-base sm:text-lg lg:text-2xl font-semibold text-gray-900">Sélectionnez une date</h3>
           </div>
           
           <div className="calendar-container w-full flex justify-center">
@@ -152,40 +152,40 @@ export const ScheduleStep = ({ selectedSlot, onSlotSelect, onNext, onBack }: Sch
                 isWeekend(date)
               }
               locale={fr}
-              className="w-full max-w-full [&_.rdp-table]:w-full [&_.rdp-table]:max-w-none [&_.rdp-day_button]:h-12 [&_.rdp-day_button]:w-12 [&_.rdp-day_button]:text-base [&_.rdp-head_cell]:h-12 [&_.rdp-head_cell]:w-12 [&_.rdp-head_cell]:text-center [&_.rdp-head_cell]:text-sm [&_.rdp-cell]:p-0 [&_.rdp-day_selected]:bg-primary [&_.rdp-day_selected]:text-white [&_.rdp-day_selected]:font-semibold [&_.rdp-day_selected]:rounded-full [&_.rdp-nav_button]:h-9 [&_.rdp-nav_button]:w-9 [&_.rdp-caption_label]:text-lg [&_.rdp-caption_label]:font-semibold pointer-events-auto"
+              className="w-full max-w-full [&_.rdp-table]:w-full [&_.rdp-table]:max-w-none [&_.rdp-day_button]:h-9 [&_.rdp-day_button]:w-9 sm:[&_.rdp-day_button]:h-12 sm:[&_.rdp-day_button]:w-12 [&_.rdp-day_button]:text-sm sm:[&_.rdp-day_button]:text-base [&_.rdp-head_cell]:h-9 [&_.rdp-head_cell]:w-9 sm:[&_.rdp-head_cell]:h-12 sm:[&_.rdp-head_cell]:w-12 [&_.rdp-head_cell]:text-center [&_.rdp-head_cell]:text-xs sm:[&_.rdp-head_cell]:text-sm [&_.rdp-cell]:p-0 [&_.rdp-day_selected]:bg-primary [&_.rdp-day_selected]:text-white [&_.rdp-day_selected]:font-semibold [&_.rdp-day_selected]:rounded-full [&_.rdp-nav_button]:h-8 [&_.rdp-nav_button]:w-8 sm:[&_.rdp-nav_button]:h-9 sm:[&_.rdp-nav_button]:w-9 [&_.rdp-caption_label]:text-base sm:[&_.rdp-caption_label]:text-lg [&_.rdp-caption_label]:font-semibold pointer-events-auto"
             />
           </div>
           
-          <div className="mt-4 sm:mt-6 space-y-2 sm:space-y-3 text-xs sm:text-sm">
+          <div className="mt-3 sm:mt-6 space-y-1 sm:space-y-3 text-xs sm:text-sm">
             <div className="flex items-center text-gray-600">
-              <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+              <div className="w-2 h-2 bg-primary rounded-full mr-2 sm:mr-3"></div>
               <span>Interventions du lundi au vendredi uniquement</span>
             </div>
             <div className="flex items-center text-gray-600">
-              <div className="w-2 h-2 bg-gray-300 rounded-full mr-3"></div>
+              <div className="w-2 h-2 bg-gray-300 rounded-full mr-2 sm:mr-3"></div>
               <span>Réservation possible à partir de demain</span>
             </div>
             <div className="flex items-center text-gray-600">
-              <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+              <div className="w-2 h-2 bg-green-500 rounded-full mr-2 sm:mr-3"></div>
               <span>Disponibilités en temps réel</span>
             </div>
           </div>
         </div>
 
         {/* Time Slots modernes adaptés mobile */}
-        <div className="bg-white rounded-2xl p-4 sm:p-8 shadow-lg border border-gray-100">
-          <div className="flex items-center mb-4 sm:mb-6">
-            <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-primary mr-3" />
-            <h3 className="text-lg sm:text-2xl font-semibold text-gray-900">Choisissez un créneau</h3>
+        <div className="bg-white rounded-2xl p-3 sm:p-6 lg:p-8 shadow-lg border border-gray-100">
+          <div className="flex items-center mb-3 sm:mb-6">
+            <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-primary mr-2 sm:mr-3" />
+            <h3 className="text-base sm:text-lg lg:text-2xl font-semibold text-gray-900">Choisissez un créneau</h3>
           </div>
           
           {selectedDate ? (
-            <div className="space-y-4">
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
-                <div className="font-semibold text-blue-900">
+            <div className="space-y-3 sm:space-y-4">
+              <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 sm:p-4 mb-4 sm:mb-6">
+                <div className="font-semibold text-blue-900 text-sm sm:text-base">
                   {format(selectedDate, 'EEEE d MMMM yyyy', { locale: fr })}
                 </div>
-                <div className="text-blue-700 text-sm mt-1">
+                <div className="text-blue-700 text-xs sm:text-sm mt-1">
                   Sélectionnez votre créneau préféré
                 </div>
               </div>
@@ -202,7 +202,7 @@ export const ScheduleStep = ({ selectedSlot, onSlotSelect, onNext, onBack }: Sch
                     key={slot.period}
                     onClick={() => isAvailable ? handleTimeSlotSelect(slot.period, slot.label) : null}
                     disabled={!isAvailable}
-                    className={`w-full p-3 sm:p-6 rounded-xl border-2 transition-all duration-300 text-left relative overflow-hidden group ${
+                    className={`w-full p-3 sm:p-4 lg:p-6 rounded-xl border-2 transition-all duration-300 text-left relative overflow-hidden group ${
                       !isAvailable
                         ? 'border-gray-200 bg-gray-50 opacity-50 cursor-not-allowed'
                         : isSelected
@@ -216,18 +216,18 @@ export const ScheduleStep = ({ selectedSlot, onSlotSelect, onNext, onBack }: Sch
                       </div>
                     )}
                     {slot.popular && isAvailable && (
-                      <div className="absolute top-3 right-3 bg-orange-100 text-orange-600 text-xs font-semibold px-2 py-1 rounded-full">
+                      <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-orange-100 text-orange-600 text-xs font-semibold px-2 py-1 rounded-full">
                         Populaire
                       </div>
                     )}
                     
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-4">
-                        <div className="text-3xl">{slot.icon}</div>
+                      <div className="flex items-center space-x-3 sm:space-x-4">
+                        <div className="text-2xl sm:text-3xl">{slot.icon}</div>
                         <div>
-                          <div className="font-semibold text-lg text-gray-900">{slot.description}</div>
-                          <div className="text-gray-600">{slot.label}</div>
-                          <div className="text-sm text-gray-500 mt-1">
+                          <div className="font-semibold text-base sm:text-lg text-gray-900">{slot.description}</div>
+                          <div className="text-sm sm:text-base text-gray-600">{slot.label}</div>
+                          <div className="text-xs sm:text-sm text-gray-500 mt-1">
                             {slot.period === 'morning' ? 'Idéal pour commencer la journée' : 'Parfait après le déjeuner'}
                           </div>
                         </div>
@@ -235,7 +235,7 @@ export const ScheduleStep = ({ selectedSlot, onSlotSelect, onNext, onBack }: Sch
                       
                       {isSelected && (
                         <div className="text-primary">
-                          <CheckCircle className="w-8 h-8" />
+                          <CheckCircle className="w-6 h-6 sm:w-8 sm:h-8" />
                         </div>
                       )}
                     </div>
@@ -244,9 +244,9 @@ export const ScheduleStep = ({ selectedSlot, onSlotSelect, onNext, onBack }: Sch
               })}
             </div>
           ) : (
-            <div className="text-center py-12">
-              <CalendarDays className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <div className="text-gray-500 text-lg">Sélectionnez d'abord une date</div>
+            <div className="text-center py-8 sm:py-12">
+              <CalendarDays className="w-12 h-12 sm:w-16 sm:h-16 text-gray-300 mx-auto mb-3 sm:mb-4" />
+              <div className="text-gray-500 text-base sm:text-lg">Sélectionnez d'abord une date</div>
               <div className="text-gray-400 text-sm mt-2">Choisissez une date dans le calendrier pour voir les créneaux disponibles</div>
             </div>
           )}
@@ -254,14 +254,14 @@ export const ScheduleStep = ({ selectedSlot, onSlotSelect, onNext, onBack }: Sch
       </div>
 
       {selectedSlot && (
-        <div className="bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-200 rounded-2xl p-6 mb-8">
+        <div className="bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-200 rounded-2xl p-4 sm:p-6 mb-6 sm:mb-8">
           <div className="flex items-center">
-            <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
-              <CheckCircle className="w-6 h-6 text-green-600" />
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 rounded-full flex items-center justify-center mr-3 sm:mr-4">
+              <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
             </div>
             <div>
-              <div className="font-semibold text-green-900 text-lg">Créneau confirmé</div>
-              <div className="text-green-700 mt-1">
+              <div className="font-semibold text-green-900 text-base sm:text-lg">Créneau confirmé</div>
+              <div className="text-green-700 mt-1 text-sm sm:text-base">
                 {format(selectedSlot.date, 'EEEE d MMMM yyyy', { locale: fr })} - {selectedSlot.label}
               </div>
             </div>
@@ -270,24 +270,22 @@ export const ScheduleStep = ({ selectedSlot, onSlotSelect, onNext, onBack }: Sch
       )}
 
       {/* Navigation adaptée mobile - placée plus haut */}
-      <div className="flex justify-between items-center pt-2 sm:pt-4 px-2 sm:px-0 mb-8">
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0 pt-2 sm:pt-4 mb-6 sm:mb-8">
         <Button
           variant="outline"
           onClick={onBack}
-          className="px-4 py-3 sm:px-8 sm:py-4 text-base sm:text-lg rounded-2xl border-2 hover:bg-gray-50 transition-all duration-300 min-w-[120px] sm:min-w-auto"
+          className="w-full sm:w-auto px-4 py-3 sm:px-8 sm:py-4 text-sm sm:text-base lg:text-lg rounded-2xl border-2 hover:bg-gray-50 transition-all duration-300 order-2 sm:order-1"
         >
           <ArrowLeft className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-          <span className="hidden sm:inline">Retour</span>
-          <span className="sm:hidden">Retour</span>
+          Retour
         </Button>
         
         {selectedSlot && (
           <Button
             onClick={onNext}
-            className="bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-white px-4 py-3 sm:px-8 sm:py-4 text-base sm:text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 min-w-[120px] sm:min-w-auto"
+            className="w-full sm:w-auto bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-white px-4 py-3 sm:px-8 sm:py-4 text-sm sm:text-base lg:text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 order-1 sm:order-2"
           >
-            <span className="hidden sm:inline">Continuer</span>
-            <span className="sm:hidden">Suivant</span>
+            Continuer
             <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
           </Button>
         )}
