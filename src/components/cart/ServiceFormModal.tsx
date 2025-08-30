@@ -139,7 +139,7 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
                   <SelectValue placeholder="Sélectionnez le type de véhicule..." />
                 </SelectTrigger>
                 <SelectContent className="bg-white border-2 shadow-lg z-50">
-                  <SelectItem value="petite">Petite voiture</SelectItem>
+                  <SelectItem value="petite">Petite voiture (Ex. Fiat panda)</SelectItem>
                   <SelectItem value="moyenne">Moyenne voiture</SelectItem>
                   <SelectItem value="grande">Grande voiture (SUV/Van)</SelectItem>
                 </SelectContent>
