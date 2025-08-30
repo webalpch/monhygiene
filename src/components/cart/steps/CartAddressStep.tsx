@@ -305,15 +305,26 @@ export const CartAddressStep: React.FC<CartAddressStepProps> = ({
           <div className="h-20"></div>
         </div>
 
-        {/* Fixed Bottom Button */}
+        {/* Fixed Bottom Buttons */}
         <div className="flex-shrink-0 p-4 border-t bg-white">
-          <Button 
-            onClick={onNext} 
-            disabled={!address}
-            className="w-full h-12 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white text-base font-medium rounded-lg"
-          >
-            Continuer
-          </Button>
+          <div className="flex gap-3">
+            {onBack && (
+              <Button 
+                onClick={onBack}
+                variant="outline"
+                className="flex-1 h-12 border-gray-300 text-gray-700 hover:bg-gray-50 text-base font-medium rounded-lg"
+              >
+                Retour
+              </Button>
+            )}
+            <Button 
+              onClick={onNext} 
+              disabled={!address}
+              className="flex-1 h-12 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white text-base font-medium rounded-lg"
+            >
+              Continuer
+            </Button>
+          </div>
         </div>
       </div>
     </div>
