@@ -207,65 +207,53 @@ export const CartAddressStep: React.FC<CartAddressStepProps> = ({
     }
   };
   return (
-    <div className="h-full flex flex-col">
-      {/* Header */}
-      <div className="px-4 py-4 bg-white border-b border-gray-100">
-        <h2 className="text-lg font-bold text-gray-900 text-center mb-1">
-          Où souhaitez-vous nos services ?
-        </h2>
-        <p className="text-sm text-gray-600 text-center">
-          Recherchez votre adresse en Suisse
-        </p>
-      </div>
-
-      {/* Map with search overlay - takes remaining space */}
-      <div className="flex-1 relative">
+    <div className="flex flex-col h-full min-h-screen sm:min-h-[400px]">
+      {/* Map Container - Fixed Height */}
+      <div className="relative h-64 sm:h-80 flex-shrink-0">
         <Map address={address} height="100%" className="h-full" />
         
         {/* Search overlay */}
         <div className="absolute top-4 left-4 right-4 z-20">
           <form onSubmit={handleSearchSubmit} className="w-full">
-            <div className="flex space-x-2">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 z-10" />
-                {isLoading && <Loader2 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-primary w-5 h-5 animate-spin z-10" />}
-                <Input 
-                  value={searchValue} 
-                  onChange={e => handleSearchChange(e.target.value)} 
-                  placeholder="Route Du Tsepet 16, 1914 Isérables, Suisse" 
-                  className="pl-10 pr-10 bg-white/95 backdrop-blur-sm border-gray-300 shadow-lg text-base h-12 rounded-lg" 
-                  onFocus={() => {
-                    if (suggestions.length > 0) {
-                      setShowSuggestions(true);
-                    }
-                  }} 
-                />
-                
-                {/* Suggestions dropdown */}
-                {showSuggestions && suggestions.length > 0 && (
-                  <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-xl z-30 max-h-60 overflow-y-auto">
-                    {suggestions.map(suggestion => (
-                      <div 
-                        key={suggestion.id} 
-                        onClick={() => handleSuggestionSelect(suggestion)} 
-                        className="px-4 py-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0 flex items-start space-x-3"
-                      >
-                        <MapPin className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900 truncate">
-                            {suggestion.place_name}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 z-10" />
+              {isLoading && <Loader2 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-primary w-5 h-5 animate-spin z-10" />}
+              <Input 
+                value={searchValue} 
+                onChange={e => handleSearchChange(e.target.value)} 
+                placeholder="Route Du Tsepet 16, 1914 Isérables, Suisse" 
+                className="pl-10 pr-10 bg-white/95 backdrop-blur-sm border-gray-300 shadow-lg text-base h-12 rounded-lg" 
+                onFocus={() => {
+                  if (suggestions.length > 0) {
+                    setShowSuggestions(true);
+                  }
+                }} 
+              />
+              
+              {/* Suggestions dropdown */}
+              {showSuggestions && suggestions.length > 0 && (
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-xl z-30 max-h-60 overflow-y-auto">
+                  {suggestions.map(suggestion => (
+                    <div 
+                      key={suggestion.id} 
+                      onClick={() => handleSuggestionSelect(suggestion)} 
+                      className="px-4 py-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0 flex items-start space-x-3"
+                    >
+                      <MapPin className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-gray-900 truncate">
+                          {suggestion.place_name}
+                        </p>
+                        {suggestion.context && (
+                          <p className="text-xs text-gray-500 truncate">
+                            {suggestion.context.map(c => c.text).join(', ')}
                           </p>
-                          {suggestion.context && (
-                            <p className="text-xs text-gray-500 truncate">
-                              {suggestion.context.map(c => c.text).join(', ')}
-                            </p>
-                          )}
-                        </div>
+                        )}
                       </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </form>
         </div>
@@ -274,36 +262,60 @@ export const CartAddressStep: React.FC<CartAddressStepProps> = ({
         {showSuggestions && <div className="fixed inset-0 z-10" onClick={() => setShowSuggestions(false)} />}
       </div>
 
-      {/* Selected Address Display */}
-      {address && (
-        <div className="px-4 py-3 bg-white border-t border-gray-100">
-          <Card className="bg-green-50 border-green-200 shadow-sm">
-            <CardContent className="p-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3 flex-1 min-w-0">
+      {/* Scrollable Content Area */}
+      <div className="flex-1 flex flex-col overflow-y-auto">
+        <div className="p-4 space-y-4 flex-1">
+          {/* Header */}
+          <div className="text-center">
+            <h2 className="text-lg font-bold text-gray-900 mb-1">
+              Où souhaitez-vous nos services ?
+            </h2>
+            <p className="text-sm text-gray-600">
+              Recherchez votre adresse en Suisse
+            </p>
+          </div>
+
+          {/* Selected Address Display */}
+          {address && (
+            <Card className="bg-green-50 border-green-200 shadow-sm">
+              <CardContent className="p-4">
+                <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-green-900">Adresse sélectionnée</p>
-                    <p className="text-sm text-green-700 truncate">{address.place_name}</p>
+                    <p className="text-sm text-green-700 break-words">{address.place_name}</p>
                   </div>
                 </div>
+              </CardContent>
+            </Card>
+          )}
+          
+          {/* Info when no address selected */}
+          {!address && (
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <div className="text-center">
+                <p className="text-sm text-blue-800">
+                  Utilisez la recherche ci-dessus pour sélectionner votre adresse
+                </p>
               </div>
-            </CardContent>
-          </Card>
-        </div>
-      )}
+            </div>
+          )}
 
-      {/* Continue button - fixed at bottom */}
-      {address && (
-        <div className="px-4 py-4 bg-white border-t border-gray-100">
+          {/* Spacer to ensure button is always accessible */}
+          <div className="h-20"></div>
+        </div>
+
+        {/* Fixed Bottom Button */}
+        <div className="flex-shrink-0 p-4 border-t bg-white">
           <Button 
             onClick={onNext} 
-            className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white text-base font-medium rounded-lg"
+            disabled={!address}
+            className="w-full h-12 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white text-base font-medium rounded-lg"
           >
             Continuer
           </Button>
         </div>
-      )}
+      </div>
     </div>
   );
 };
