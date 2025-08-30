@@ -100,7 +100,7 @@ const VideoSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 whitespace-nowrap sm:whitespace-normal">
-            {t('video.title')}
+            Découvrez <span className="text-primary">MonHygiène</span> en action
           </h2>
           <p className="text-sm sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto line-clamp-2 md:line-clamp-none">
             {t('video.subtitle')}
