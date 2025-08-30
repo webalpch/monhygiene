@@ -245,11 +245,11 @@ export const CartContactStep: React.FC<CartContactStepProps> = ({
       </div>
 
       {/* Navigation */}
-      <div className="flex justify-between pt-6 border-t">
+      <div className="flex flex-col sm:flex-row justify-between gap-4 pt-6 border-t">
         <button
           onClick={onBack}
           disabled={isSubmitting}
-          className="px-6 py-2 text-gray-600 hover:text-gray-800 transition-colors disabled:opacity-50"
+          className="w-full sm:w-auto px-6 py-3 text-gray-600 hover:text-gray-800 transition-colors disabled:opacity-50 rounded-lg border border-gray-300 hover:border-gray-400 font-medium"
         >
           ← Retour au planning
         </button>
