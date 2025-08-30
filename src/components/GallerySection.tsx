@@ -250,15 +250,18 @@ const GallerySection = () => {
                     loading="eager"
                     style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
                   />
-                  <div className="absolute top-4 left-4 flex gap-2">
-                    {/* Cercle AVANT */}
-                    <div className="w-12 h-12 rounded-full bg-black flex items-center justify-center">
-                      <span className="text-white text-xs font-bold">AVANT</span>
-                    </div>
-                    {/* Cercle APRÈS */}
-                    <div className="w-12 h-12 rounded-full bg-white border-2 border-gray-300 flex items-center justify-center">
-                      <span className="text-black text-xs font-bold">APRÈS</span>
-                    </div>
+                  <div className="absolute top-4 left-4">
+                    {!showAfterById[item.id] ? (
+                      /* Cercle AVANT - noir avec texte blanc */
+                      <div className="w-12 h-12 rounded-full bg-black flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">AVANT</span>
+                      </div>
+                    ) : (
+                      /* Cercle APRÈS - blanc avec texte noir */
+                      <div className="w-12 h-12 rounded-full bg-white border-2 border-gray-300 flex items-center justify-center">
+                        <span className="text-black text-xs font-bold">APRÈS</span>
+                      </div>
+                    )}
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-200 pointer-events-none" />
                   <div className="absolute bottom-4 right-4 opacity-0 hover:opacity-100 transition-opacity duration-200 bg-white/90 text-primary text-xs rounded-xl px-3 py-1 pointer-events-none">
