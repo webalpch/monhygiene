@@ -298,7 +298,7 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
             <div className="border-t pt-4 space-y-2">
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">Prix:</span>
-                <span className="font-medium">70 CHF</span>
+                <span className="font-medium">120 CHF</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">Durée:</span>
