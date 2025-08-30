@@ -41,6 +41,7 @@ const HeroSection = ({ onReservationClick }: HeroSectionProps) => {
             variant="secondary" 
             size="lg"
             className="bg-white text-black hover:bg-white/90 px-6 py-3 text-base lg:px-8 lg:text-lg font-bold"
+            onClick={() => window.open('https://wa.me/message/CJKXPUTDPLG6D1', '_blank')}
           >
             Contactez-nous
           </Button>
