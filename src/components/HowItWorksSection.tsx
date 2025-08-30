@@ -261,20 +261,20 @@ const HowItWorksSection = () => {
             <div className="bg-white p-3 rounded-lg">
               <div className="space-y-3">
                 <div>
-                  <p className="text-sm font-bold text-green-600 mb-1">✅ Offert :</p>
-                  <p className="text-xs text-gray-700">Nous venons jusqu'à vous gratuitement dans un rayon de 5 km autour de Sion.</p>
+                  <p className="text-sm font-bold text-black mb-1">Offert :</p>
+                  <p className="text-xs text-black">Nous venons jusqu'à vous gratuitement dans un rayon de 5 km autour de Sion.</p>
                 </div>
                 
                 <div>
-                  <p className="text-sm font-bold text-blue-600 mb-1">🚗 Au-delà :</p>
-                  <p className="text-xs text-gray-700 mb-1">Déplacement facturé à seulement 0.75 CHF/km (trajet aller).</p>
-                  <p className="text-xs text-gray-500">Exemple : Sion → Martigny = 19 CHF</p>
+                  <p className="text-sm font-bold text-black mb-1">Au-delà :</p>
+                  <p className="text-xs text-black mb-1">Déplacement facturé à seulement 0.75 CHF/km (trajet aller).</p>
+                  <p className="text-xs text-black">Exemple : Sion → Martigny = 19 CHF</p>
                 </div>
                 
                 <div>
-                  <p className="text-sm font-bold text-orange-600 mb-1">🎁 Bonus fidélité :</p>
-                  <p className="text-xs text-gray-700 mb-1">Pour toute facture de plus de 300 CHF, profitez d'un tarif réduit à seulement 0.35 CHF/km</p>
-                  <p className="text-xs text-gray-500">Exemple : Sion → Martigny = 9 CHF</p>
+                  <p className="text-sm font-bold text-black mb-1">Bonus fidélité :</p>
+                  <p className="text-xs text-black mb-1">Pour toute facture de plus de 300 CHF, profitez d'un tarif réduit à seulement 0.35 CHF/km</p>
+                  <p className="text-xs text-black">Exemple : Sion → Martigny = 9 CHF</p>
                 </div>
               </div>
             </div>
