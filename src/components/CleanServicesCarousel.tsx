@@ -81,18 +81,6 @@ const CleanServicesCarousel: React.FC<CleanServicesCarouselProps> = ({
                   className="cursor-pointer transition-all duration-300 hover:shadow-xl h-full relative"
                   onClick={() => setInfoService(service)}
                 >
-                  {/* Info button */}
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="absolute top-2 right-2 z-10 h-8 w-8 p-0 bg-white/90 hover:bg-white border border-gray-200 hover:border-gray-300 shadow-sm"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setInfoService(service);
-                    }}
-                  >
-                    <Info className="w-4 h-4 text-gray-600" />
-                  </Button>
 
                   <CardContent className="p-8 text-center h-full flex flex-col justify-between">
                       <div className="flex flex-col items-center">
