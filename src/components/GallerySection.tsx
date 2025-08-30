@@ -205,7 +205,7 @@ const GallerySection = () => {
           <h2 className="text-4xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
             {t('gallery.title')} <span className="bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">{t('gallery.before')}/{t('gallery.after')}</span>
           </h2>
-          <p className="text-lg text-muted-foreground">{t('gallery.subtitle')}</p>
+          <p className="text-lg text-muted-foreground">Cliquez sur l'image</p>
         </div>
         <Carousel
           className="relative w-full max-w-2xl mx-auto px-2"
