@@ -175,11 +175,6 @@ const VideoSection = () => {
           </div>
         )}
 
-        <div className="text-center mt-12">
-          <p className="text-lg text-gray-600 font-medium">
-            {getQualityText()}
-          </p>
-        </div>
       </div>
     </section>
   );
