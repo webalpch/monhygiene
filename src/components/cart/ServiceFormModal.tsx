@@ -536,13 +536,6 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
               </div>
             )}
             
-            {calculatePrice() === 0 && (
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 sm:p-4">
-                <p className="text-blue-800 text-sm font-medium">
-                  Prix sur devis - Nous vous contacterons pour établir un devis personnalisé.
-                </p>
-              </div>
-            )}
           </div>
         </div>
 
