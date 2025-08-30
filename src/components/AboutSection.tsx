@@ -54,7 +54,7 @@ const AboutSection = () => {
           <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setShowModal(false)}>
             <div className="bg-white rounded-3xl p-10 max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent" onClick={(e) => e.stopPropagation()}>
               <div className="flex justify-between items-start mb-8">
-                <h3 className="text-4xl font-bold text-foreground">
+                <h3 className="text-2xl lg:text-4xl font-bold text-foreground whitespace-nowrap">
                   {content.ourStory}
                 </h3>
                 <Button
