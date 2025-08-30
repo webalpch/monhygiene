@@ -250,12 +250,15 @@ const GallerySection = () => {
                     loading="eager"
                     style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
                   />
-                  <div className="absolute top-4 left-4">
-                    <img 
-                      src={showAfterById[item.id] ? '/lovable-uploads/d1545239-0bcb-4f32-ae0c-aae710f4aeca.png' : '/lovable-uploads/1d3d6264-bbfb-4595-9b30-3ca93c0c5fd7.png'}
-                      alt={showAfterById[item.id] ? t('gallery.after') : t('gallery.before')}
-                      className="w-20 h-16 object-contain drop-shadow-lg"
-                    />
+                  <div className="absolute top-4 left-4 flex gap-2">
+                    {/* Cercle AVANT */}
+                    <div className="w-12 h-12 rounded-full bg-black flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">AVANT</span>
+                    </div>
+                    {/* Cercle APRÈS */}
+                    <div className="w-12 h-12 rounded-full bg-white border-2 border-gray-300 flex items-center justify-center">
+                      <span className="text-black text-xs font-bold">APRÈS</span>
+                    </div>
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-200 pointer-events-none" />
                   <div className="absolute bottom-4 right-4 opacity-0 hover:opacity-100 transition-opacity duration-200 bg-white/90 text-primary text-xs rounded-xl px-3 py-1 pointer-events-none">
