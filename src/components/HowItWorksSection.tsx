@@ -83,7 +83,7 @@ const HowItWorksSection = () => {
             icon: CheckCircle
           }, {
             number: "2",
-            title: "Validation de détail",
+            title: "Validation de détails",
             description: "Après votre réservation, nous vous contacterons par téléphone ou via WhatsApp afin de valider ensemble les derniers détails de l'intervention.",
             icon: Phone
           }, {
