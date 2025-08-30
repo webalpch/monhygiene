@@ -112,8 +112,8 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
             'Intérieur et extérieur',
             'Finition impeccable'
           ],
-          duration: '1-2 heures',
-          priceRange: 'Sur devis - Dépend de la surface et du nombre de vitres'
+          duration: 'Variable',
+          priceRange: 'Sur devis'
         };
       case 'nettoyage-moquette-tapis':
         return {
@@ -125,8 +125,8 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
             'Séchage rapide',
             'Toutes surfaces textiles'
           ],
-          duration: '2-3 heures',
-          priceRange: 'Sur devis - Dépend de la surface et du type de matériau'
+          duration: 'Variable',
+          priceRange: 'Sur devis'
         };
       case 'autres-services':
         return {
@@ -154,6 +154,19 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
           duration: '1-2 heures',
           priceRange: '20 CHF par siège'
         };
+      case 'nettoyage-terrasse':
+        return {
+          description: 'Nettoyage haute pression de terrasse et surfaces extérieures',
+          features: [
+            'Nettoyage haute pression',
+            'Élimination mousses et salissures',
+            'Traitement anti-mousse',
+            'Rinçage complet',
+            'Toutes surfaces extérieures'
+          ],
+          duration: 'Variable',
+          priceRange: 'Sur devis'
+        };
       case 'nettoyage-toiture':
         return {
           description: 'Nettoyage de toiture avec matériel spécialisé',
@@ -164,8 +177,8 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
             'Évacuation des débris',
             'Respect des normes de sécurité'
           ],
-          duration: '1 journée',
-          priceRange: 'Sur devis - Dépend de la surface, du type de toiture et de l\'accessibilité'
+          duration: 'Variable',
+          priceRange: 'Sur devis'
         };
       case 'nettoyage-billard':
         return {
@@ -298,7 +311,7 @@ export const ServiceInfoModal: React.FC<ServiceInfoModalProps> = ({ service, isO
             <div className="border-t pt-4 space-y-2">
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">Prix:</span>
-                <span className="font-medium">120 CHF</span>
+                <span className="font-medium">{details.priceRange}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">Durée:</span>
