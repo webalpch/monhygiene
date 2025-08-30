@@ -194,10 +194,10 @@ export const ReservationModal = ({ isOpen, onClose }: ReservationModalProps) => 
   return (
     <>
       <Dialog open={isOpen} onOpenChange={handleClose}>
-        <DialogContent className="max-w-[98vw] sm:max-w-6xl lg:max-w-7xl max-h-[95vh] sm:max-h-[90vh] p-0 overflow-hidden rounded-lg sm:rounded-2xl mx-2 sm:mx-auto"
+        <DialogContent className="w-full h-full max-w-none max-h-none sm:max-w-6xl lg:max-w-7xl sm:max-h-[90vh] p-0 overflow-hidden sm:rounded-2xl m-0 sm:m-auto"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="h-full flex flex-col min-h-[400px] max-h-[95vh]">
+          <div className="h-full flex flex-col min-h-screen sm:min-h-[400px] sm:max-h-[90vh]">
             <div className="flex-shrink-0 p-4 sm:p-6 border-b bg-white/80 backdrop-blur-sm">
               {/* Step Title */}
               <div className="text-center mb-4">
@@ -235,7 +235,7 @@ export const ReservationModal = ({ isOpen, onClose }: ReservationModalProps) => 
               </div>
             </div>
             
-            <div className="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-4 lg:p-6 pb-20 touch-pan-y" style={{ WebkitOverflowScrolling: 'touch' }}>
+            <div className="flex-1 overflow-y-auto overflow-x-hidden touch-pan-y" style={{ WebkitOverflowScrolling: 'touch' }}>
               {renderCurrentStep()}
             </div>
           </div>
