@@ -170,9 +170,6 @@ const HowItWorksSection = () => {
                         <div className={`w-12 h-12 bg-gradient-to-r from-primary to-primary/80 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl ${isActive ? 'scale-110 shadow-xl' : ''}`}>
                           <IconComponent className="w-6 h-6 text-white" />
                         </div>
-                        <div className="absolute -top-1 -right-1 w-5 h-5 bg-white border-2 border-primary rounded-full flex items-center justify-center text-primary font-bold text-xs shadow-md">
-                          {step.number}
-                        </div>
                         
                         {/* Hover indicator */}
                         <div className={`absolute -bottom-8 left-1/2 transform -translate-x-1/2 transition-all duration-300 ${!isActive ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
@@ -219,9 +216,6 @@ const HowItWorksSection = () => {
                       <div className="relative flex-shrink-0">
                         <div className={`w-12 h-12 bg-gradient-to-r from-primary to-primary/80 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 ${isActive ? 'scale-110 shadow-xl' : ''}`}>
                           <IconComponent className="w-6 h-6 text-white" />
-                        </div>
-                        <div className="absolute -top-1 -right-1 w-5 h-5 bg-white border-2 border-primary rounded-full flex items-center justify-center text-primary font-bold text-xs">
-                          {step.number}
                         </div>
                       </div>
                       

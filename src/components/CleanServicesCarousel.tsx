@@ -115,9 +115,16 @@ const CleanServicesCarousel: React.FC<CleanServicesCarouselProps> = ({
                       </h3>
                     </div>
                     
-                    <p className="text-gray-600 text-sm leading-relaxed mt-auto">
-                      {service.description}
-                    </p>
+                    <Button
+                      variant="default"
+                      className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors duration-200"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setInfoService(service);
+                      }}
+                    >
+                      En savoir plus
+                    </Button>
                   </CardContent>
                 </Card>
               </div>
