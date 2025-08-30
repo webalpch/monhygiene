@@ -20,7 +20,7 @@ const HowItWorksSection = () => {
     t,
     language
   } = useLanguage();
-  const [activeStep, setActiveStep] = useState<number | null>(null);
+  const [activeSteps, setActiveSteps] = useState<number[]>([]);
   const getStepsContent = () => {
     switch (language) {
       case 'de':
@@ -102,7 +102,11 @@ const HowItWorksSection = () => {
   };
   const content = getStepsContent();
   const toggleStep = (index: number) => {
-    setActiveStep(activeStep === index ? null : index);
+    setActiveSteps(prev => 
+      prev.includes(index) 
+        ? prev.filter(i => i !== index)
+        : [...prev, index]
+    );
   };
   return <section className="section-padding bg-gradient-to-br from-white to-gray-50 overflow-hidden" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
@@ -155,7 +159,7 @@ const HowItWorksSection = () => {
               <div className="flex justify-between items-start px-8">
                 {content.steps.map((step, index) => {
                 const IconComponent = step.icon;
-                const isActive = activeStep === index;
+                const isActive = activeSteps.includes(index);
                 return <div key={index} className="flex flex-col items-center max-w-xs">
                       {/* Clickable point */}
                       <div className="relative cursor-pointer group" onClick={() => toggleStep(index)} style={{
@@ -206,7 +210,7 @@ const HowItWorksSection = () => {
             <div className="space-y-6">
               {content.steps.map((step, index) => {
               const IconComponent = step.icon;
-              const isActive = activeStep === index;
+              const isActive = activeSteps.includes(index);
               return <div key={index} className="relative">
                     {/* Connecting line for mobile */}
                     {index < content.steps.length - 1 && <div className="absolute left-6 top-12 w-0.5 h-16 bg-primary/30"></div>}
