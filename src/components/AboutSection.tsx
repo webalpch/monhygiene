@@ -69,7 +69,7 @@ const AboutSection = () => {
               
               <div className="space-y-6 text-foreground leading-relaxed text-lg">
                 {content.content.map((paragraph, index) => (
-                  <p key={index}>{paragraph}</p>
+                  <p key={index}>{index === 0 ? "jeune entrepreneur Syrien" : paragraph}</p>
                 ))}
               </div>
               
