@@ -1,0 +1,32 @@
+
+.embla {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+  touch-action: pan-y;
+  margin-left: calc(1rem * -1);
+}
+
+.embla__slide {
+  transform: translate3d(0, 0, 0);
+  flex: 0 0 280px;
+  padding-left: 1rem;
+  min-width: 0;
+}
+
+@media (max-width: 640px) {
+  .embla__slide {
+    flex: 0 0 240px;
+  }
+}
+
+/* Animation pour les éléments centrés */
+.embla__slide button {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.embla__slide:hover button {
+  transform: translateY(-2px);
+}

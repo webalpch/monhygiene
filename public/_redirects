@@ -1,0 +1,6 @@
+
+# Handle React Router routes
+/*    /index.html   200
+
+# Handle 404 errors - redirect to our custom 404 page
+/*    /404   404

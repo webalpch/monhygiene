@@ -1,0 +1,230 @@
+/* Custom styles pour react-big-calendar responsif */
+
+/* Container général responsive */
+.rbc-calendar {
+  min-height: 400px;
+}
+
+/* Mobile first - View Month */
+@media (max-width: 768px) {
+  .rbc-calendar {
+    min-height: 350px;
+  }
+  
+  /* Toolbar mobile */
+  .rbc-toolbar {
+    flex-direction: column !important;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .rbc-toolbar-label {
+    font-size: 0.9rem !important;
+    font-weight: 600;
+    text-align: center;
+    margin: 0.5rem 0;
+  }
+  
+  /* Vue mois mobile */
+  .rbc-month-view {
+    min-height: 300px;
+  }
+  
+  .rbc-date-cell {
+    padding: 1px 2px !important;
+    font-size: 0.75rem !important;
+  }
+  
+  .rbc-month-row {
+    min-height: 40px !important;
+  }
+  
+  .rbc-event {
+    font-size: 0.65rem !important;
+    padding: 1px 3px !important;
+    margin: 1px 0 !important;
+    border-radius: 3px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Vue semaine mobile - CRITIQUE */
+  .rbc-time-view {
+    min-height: 350px !important;
+  }
+  
+  .rbc-time-header {
+    min-height: 40px !important;
+  }
+  
+  .rbc-time-header-content {
+    border-left: 1px solid #ddd;
+  }
+  
+  .rbc-time-content {
+    min-height: 300px !important;
+  }
+  
+  .rbc-time-gutter {
+    width: 40px !important;
+    font-size: 0.7rem !important;
+  }
+  
+  .rbc-time-slot {
+    min-height: 25px !important;
+  }
+  
+  .rbc-timeslot-group {
+    min-height: 50px !important;
+  }
+  
+  .rbc-day-slot {
+    min-width: calc(100vw / 8) !important;
+  }
+  
+  .rbc-header {
+    padding: 4px 2px !important;
+    font-size: 0.7rem !important;
+    font-weight: 600;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Events dans la vue semaine */
+  .rbc-time-view .rbc-event {
+    font-size: 0.6rem !important;
+    padding: 2px 4px !important;
+    border-radius: 2px !important;
+    line-height: 1.2;
+  }
+  
+  /* Vue jour mobile */
+  .rbc-agenda-view {
+    font-size: 0.8rem !important;
+  }
+  
+  .rbc-agenda-view table {
+    font-size: 0.75rem !important;
+  }
+  
+  .rbc-agenda-date-cell,
+  .rbc-agenda-time-cell,
+  .rbc-agenda-event-cell {
+    padding: 4px 6px !important;
+  }
+}
+
+/* Tablette */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .rbc-calendar {
+    min-height: 500px;
+  }
+  
+  .rbc-time-view {
+    min-height: 450px !important;
+  }
+  
+  .rbc-time-gutter {
+    width: 50px !important;
+  }
+  
+  .rbc-day-slot {
+    min-width: 80px !important;
+  }
+  
+  .rbc-event {
+    font-size: 0.75rem !important;
+  }
+  
+  .rbc-time-view .rbc-event {
+    font-size: 0.7rem !important;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1025px) {
+  .rbc-calendar {
+    min-height: 600px;
+  }
+  
+  .rbc-time-view {
+    min-height: 550px !important;
+  }
+  
+  .rbc-time-gutter {
+    width: 60px !important;
+  }
+  
+  .rbc-day-slot {
+    min-width: 100px !important;
+  }
+}
+
+/* Améliorations générales pour toutes les vues */
+.rbc-event {
+  cursor: pointer !important;
+  transition: all 0.2s ease;
+}
+
+.rbc-event:hover {
+  opacity: 0.8 !important;
+  transform: scale(1.02);
+}
+
+.rbc-selected {
+  background-color: #3b82f6 !important;
+}
+
+.rbc-today {
+  background-color: #fef3c7 !important;
+}
+
+.rbc-off-range-bg {
+  background-color: #f9fafb !important;
+}
+
+/* Scroll horizontal pour vue semaine sur mobile */
+@media (max-width: 768px) {
+  .rbc-time-view .rbc-time-content {
+    overflow-x: auto !important;
+    min-width: 100%;
+  }
+  
+  .rbc-time-header {
+    overflow-x: auto !important;
+    min-width: 100%;
+  }
+  
+  .rbc-time-header-content {
+    min-width: 600px; /* Force une largeur minimum pour voir toute la semaine */
+  }
+  
+  .rbc-time-content > * {
+    min-width: 600px; /* Même largeur pour le contenu */
+  }
+}
+
+/* Fix pour les événements qui débordent */
+.rbc-event-content {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Amélioration des bordures et espacement */
+.rbc-calendar {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.rbc-header {
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  font-weight: 600;
+}
+
+.rbc-time-header-gutter {
+  background-color: #f9fafb;
+}
